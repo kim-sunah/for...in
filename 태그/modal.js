@@ -1,60 +1,69 @@
+const showModalBtn = document.getElementById("applyFilterBtn")
+const closeModalBtn = document.getElementById("closeModalBtn")
+const applyFilterBtn = document.getElementById("applyFilterBtn")
+
+
 const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNTVkOGU5NzhjNTQyZGQ0YjE2NWQ0MDhmNjQ1ZTgxMyIsInN1YiI6IjY1MzA3NGY4MGI3NGU5MDBhYmNmOTY3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BbAayICdXcDqCMAhKfcB6MK6IIkRfsujypX6hXGcRt8'
-    }
+        accept: "application/json",
+        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzliNjIwOTFmMzY0Y2M4MzczMGExMzU3ZWM1YjE3ZCIsInN1YiI6IjY1MmY3NTcyMzU4ZGE3NWI1ZDAwODcyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j6JDptMTCwZT8Gkr2PbQ2rWV5r85H1fKNwS4iF1_o3U",
+    },
 };
+genres.forEach((genre_ids) => {
+    const option = document.createElement("option");
+    option.value = genre.id;
+    option.text = genre.name;
+    genreFilter.appendChild(option);
+});
 
-fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-
-document.getElementById("showModalBtn").addEventListener("click", openModal);
-
-function openModal() {
-    const modal = document.getElementById("myModal");
+showModalBtn.addEventListener("click", () => {
+    console log("test")
     modal.style.display = "block";
-}
 
-document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+});
 
-function closeModal() {
-    const modal = document.getElementById("myModal");
+closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
-}
+});
 
-document.getElementById("applyFilterBtn").addEventListener("click", applyFilter);
+/
+applyFilterBtn.addEventListener("click", () => {
+    search();
+});
 
-function applyFilter() {
-    const selectedGenreId = document.getElementById("genreFilter").value;
-    const apiURL = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+function search(event) {
+    if (event != null) {
+        event.preventDefault();
+    }
+    const searchgenre = option.id;
+    cardList.innerHTML = "";
 
-    fetch(apiURL, options)
+    fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
         .then(response => response.json())
-        .then(data => {
+        .then(response => {
+            response.results
+                .filter((element) => element.genre.includes(searchgenre))
+                .map((element) => {
 
+                    cardList.innerHTML += `
+                            <div class="movieCard" id="${element.id}" onclick="movieClick(${element.id})">
+                                <img class="movieImg" src="https://image.tmdb.org/t/p/w500/${element.poster_path}"/>
+                                <h3 class="movieTitle">${element.original_title}</h3>
+                                <p class="movieTxt">${element.overview}</p>
+                                <p class="movieAverage">Rating: ${element.vote_average}</p>
+                            </div>`;
+                });
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
 }
 
-const genreList = [];
 
-fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
-    .then(response => response.json())
-    .then(data => {
-        genreList = data.genre_ids;
-        populateGenreList();
-    })
-    .catch(err => console.error(err));
+const searchForm = document.getElementById("search");
+const searchInput = searchForm.querySelector("input");
+const searchBtn = searchForm.querySelector("button");
 
-function populateGenreList() {
-    const genreFilter = document.getElementById("genreFilter");
-    genreList.forEach(genre => {
-        const option = document.createElement("option");
-        option.value = genre.id;
-        option.textContent = genre.name;
-        genreFilter.appendChild(option);
-    });
-}
+searchForm.addEventListener("click", search);
+
+
+search();
