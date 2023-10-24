@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/detail.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <div onclick="location.href='index.html'" class="header_logo">
+                <h1>for...in</h1>
+            </div>
+        </div>
+    </header>
+    <div class="section_detail">
+        <!-- 상세상단 기본정보 -->
+        <div class="box_basic">
+            <div class="info_poster">
+                <a class="movie_image">
+
+                </a>
+            </div>
+            <div class="info_detail">
+                <div class="detail_tit">
+                    <div class="detail_tit_fixed" aria-hidden="true">
+                        <div class="inner_tit">
+                            <span class="txt_tit">제목</span>
+                        </div>
+                    </div>
+                    <h3 class="tit_movie">
+                        <span class="txt_tit">
+                            제목
+                        </span>
+                        <span class="txt_tag">
+                            <span class="txt_state state_dday day1"><span
+                                    class="screen_out">개봉</span>D-1</span><!-- dday 4일이상 부터 폰트컬러 블랙 -->
+                        </span>
+                    </h3>
+                    <div class="head_origin">
+                        <span class="txt_name">제목, 개봉일</span>
+                    </div>
+                    <input type="hidden" id="releaseStatus" value="true">
+                    <input type="hidden" id="releaseFlag" value="C">
+                </div>
+                <div class="detail_cont">
+                    <div class="inner_cont">
+                        <dl class="list_cont">
+                            <dt>개봉</dt>
+                            <dd class="release_date">2023.10.25</dd>
+                        </dl>
+                        <dl class="list_cont">
+                            <dt>장르</dt>
+                            <dd class="genres"></dd>
+                        </dl>
+                        <dl class="list_cont">
+                            <dt>국가</dt>
+                            <dd class="production_countries">국가</dd>
+                        </dl>
+                        <dl class="list_cont">
+                            <dt>등급</dt>
+                            <dd>
+                                전체관람가
+                            </dd>
+                        </dl>
+                        <dl class="list_cont">
+                            <dt>러닝타임</dt>
+                            <dd class="runtime">
+                                123분
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="inner_cont">
+                        <dl class="list_cont">
+                            <dt>평점</dt>
+                            <dd class="vote_average"><span class="ico_movie ico_star"></span>8.2</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 상세하단 -->
+        <div class="box_detailinfo">
+            <!-- 탭메뉴 -->
+            <div class="tabmenu_wrap">
+                <strong class="screen_out">영화제 탭메뉴</strong>
+                <ul class="list_tabmenu" role="tablist" data-tiara-layer="tab">
+                    <li role="presentation" class="on"><!-- 선택시 on 클래스 추가 -->
+                        <a class="link_tabmenu">
+                            <span class="txt_tabmenu">주요정보</span>
+                        </a>
+                </ul>
+            </div>
+            <div class="contents">
+                <h4 class="screen_out">주요정보</h4>
+                <div class="detail_basicinfo">
+                    <div class="movie_summary">
+                        <div class="info_desc" data-tiara-layer="desc">
+                            <div class="desc_cont expand" id="overview">
+                               내용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="screen_out" onclick="review()">review</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="js/detail.js" type="module"></script>
+
+</html>

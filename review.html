@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="css/review.css">
+<link rel="stylesheet" href="css/edit.css">
+<link rel="stylesheet" href="css/preview.css">
+
+<body>
+  <header>
+    <div>
+      <div onclick="location.href='index.html'" class="header_logo">
+        <h1>for...in</h1>
+      </div>
+    </div>
+  </header>
+  <div class="review colmask text_editor">
+    <form id="review" action="/review/new?language=ko" method="post">
+      <input type="hidden" name="media_type" value="movie">
+      <input type="hidden" name="media_id" value="987917">
+      <input id="content" type="hidden" name="content" value="">
+      <input type="hidden" name="id" value="">
+
+      <div class="colmid">
+        <div class="col1">
+          <a href="/movie/987917?language=ko">
+            <img class="poster" src="/t/p/w220_and_h330_face/ax1rpxHCcXVwwfn0zSte1udoJwV.jpg"
+              srcset="/t/p/w220_and_h330_face/ax1rpxHCcXVwwfn0zSte1udoJwV.jpg 1x, /t/p/w440_and_h660_face/ax1rpxHCcXVwwfn0zSte1udoJwV.jpg 2x"
+              alt="늙은 아빠들">
+
+          </a>
+        </div>
+
+        <div id="text" class="col2">
+          <h2 class="space">A review by</h2>
+          <h3>Title: <span>늙은 아빠들 (2023)</span></h3>
+          <h3 class="space">Language: <span>한국어/조선말 (ko)</span></h3>
+          <div id="editor-textarea" class="column">
+            <div class="editor">
+              <textarea placeholder="You can start writing your review here."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="action_bar">
+        <p>
+          <a href="/movie/987917?language=ko">Cancel</a>
+          <input id="submit" type="submit" value="Submit">
+        </p>
+      </div>
+    </form>
+  </div>
+</body>
+<script type="text/javascript">
+  $.initialize = function () {
+    $.editor("/review/blank", "#editor-textarea", "#editor-preview");
+  }
+
+  $(function () {
+    $.initialize();
+
+    $("#submit").click(function () {
+      var textarea = $('textarea').val();
+      $("#content").val(textarea);
+    });
+
+    $('textarea').focus();
+  });
+</script>
+
+</html>
