@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./태그/modal.css">
 </head>
+
 <body>
-    <header class = "header">
+    <div class="장르">
+        <button type="button" class="btn btn-primary" id="showModalBtn">모달 열기</button>
+    </div>
+    s
+    <div id="myModal" class="modal">
+        <div class="modal-content" id="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <select id="genreFilter">
+                <option value="">Select Genre</option>
+            </select>
+            <button type="button" id="applyFilterBtn" onclick="applyFilter()">검색하기</button>
+        </div>
+    </div>
+
+    <header class="header">
         <h1>내배캠 최고 평점 영화 콜렉션</h1>
     </header>
-    <form class = "search" id ="search">
+    <form class="search" id="search">
         <label>영화 검색 : </label>
         <input type="text" placeholder="영화 제목을 검색해 보세요">
-        <button type="submit" id = "search_btn">검색</button>
+        <button type="submit" id="search_btn">검색</button>
     </form>
-    <selection class = "cardList" id = "cardList">
-    </selection>
+    <section class="cardList" id="cardList">
+    </section>
+
     <script src="index.js"></script>
 </body>
+
 </html>
