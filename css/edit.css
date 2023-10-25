@@ -1,0 +1,37 @@
+.glyphicons_v2 {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1em;
+    min-height: 1em;
+    width: 1em;
+    height: 1em;
+    line-height: inherit;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: inherit;
+    box-sizing: border-box
+}
+
+.glyphicons_v2.italic {
+    background-image: url(/image/I.svg);
+}
+
+.glyphicons_v2.bold {
+    background-image: url(/image/B.svg)
+}
+
+.glyphicons_v2.bulletlist,.glyphicons_v2.list {
+    background-image: url(/image/LI.svg)
+}
+
+.glyphicons_v2.chat-message,.glyphicons_v2.quote {
+    background-image: url(/image/Comment.svg)
+}
+
+.glyphicons_v2.list-numbers,.glyphicons_v2.numberlist {
+    background-image: url(/image/Number.svg)
+}
