@@ -1,7 +1,7 @@
-const closeModalBtn = document.getElementById("closeModalBtn")
-const startBtn = document.getElementById("startBtn")
+const closeModalBtn = document.getElementById("closeModalBtn");
+const startBtn = document.getElementById("startBtn");
 const modal = document.getElementById("myModal");
-const genreFilter = document.getElementById("genreFilter")
+const genreFilter = document.getElementById("genreFilter");
 const genreTranslations = {
     "Action": "액션",
     "Adventure": "모험",
@@ -24,7 +24,7 @@ const genreTranslations = {
     "Western": "서부",
 };
 
-const options = {
+const Options = {
     method: "GET",
     headers: {
         accept: "application/json",
@@ -33,20 +33,19 @@ const options = {
 };
 
 startBtn.addEventListener("click", () => {
-    console.log("test")
-    modal.style.display = "block"
-
+    console.log("test");
+    modal.style.display = "block";
 });
+
 startBtn.addEventListener('keyup', event => {
     if (event.key === 'Enter') {
         searchMovies();
     }
 });
 
-fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', Options)
     .then(response => response.json())
     .then(data => {
-
         const genres = data.genres;
 
         genres.forEach(genre => {
@@ -63,15 +62,12 @@ closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-
 applyFilterBtn.addEventListener("click", () => {
-    search();
+    searchMovies();
     modal.style.display = "none";
 });
 
-console.log("hello")
-
-function search(event) {
+function searchMovies(event) {
     if (event != null) {
         event.preventDefault();
     }
@@ -79,14 +75,12 @@ function search(event) {
     const searchgenre = genreFilter.value;
     const cardList = document.getElementById("cardList");
 
-    let movieCards = [];
+    var movieCards = [];
 
-
-    fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${searchgenre}&language=en`, options)
+    fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${searchgenre}&language=en`, Options)
         .then(response => response.json())
         .then(data => {
             const results = data.results;
-
 
             results.forEach(element => {
                 const movieCard = `
@@ -97,10 +91,8 @@ function search(event) {
                         <p class="movieAverage">Rating: ${element.vote_average}</p>
                     </div>`;
 
-
                 movieCards.push(movieCard);
             });
-
 
             cardList.innerHTML = movieCards.join("");
         })
