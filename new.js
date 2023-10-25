@@ -2,7 +2,6 @@ const cardList = document.getElementById("cardList");
 const searchFrom = document.getElementById("search");
 const searchInput = searchFrom.querySelector("input");
 const movieCard = document.querySelector(".movieCard");
-const selectSort = document.getElementById("selectSort");
 searchFrom.addEventListener("submit", search);
 
 var movieClick = function (event) {
@@ -57,27 +56,29 @@ loadData();
 
 function sortChange(e) {
   if (e == "lowAverage") {
-    return movieList.sort((a, b) => (a.movieAverage > b.movieAverage ? 1 : -1));
+    movieList.sort((a, b) => (a.movieAverage > b.movieAverage ? 1 : -1));
+    return search();
   } else if (e == "highAverage") {
-    return movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
+    movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
+    return search();
   } else if (e == "new") {
-    return movieList.sort((a, b) =>
+    movieList.sort((a, b) =>
       new Date(a.movieDate) < new Date(b.movieDate) ? 1 : -1
     );
+    return search();
   } else if (e == "abc") {
-    return movieList.sort((a, b) => (a.movie > b.movie ? 1 : -1));
+    movieList.sort((a, b) => (a.movie > b.movie ? 1 : -1));
+    return search();
   } else if (e == "cba") {
-    return movieList.sort((a, b) => (a.movie < b.movie ? 1 : -1));
+    movieList.sort((a, b) => (a.movie < b.movie ? 1 : -1));
+    return search();
   } else if (e == "popularity") {
-    return movieList.sort((a, b) =>
-      a.moviePopularity < b.moviePopularity ? 1 : -1
-    );
+    movieList.sort((a, b) => (a.moviePopularity < b.moviePopularity ? 1 : -1));
+    return search();
   } else {
     return movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
   }
 }
-
-console.log(movieList);
 
 function search(event) {
   if (event != null) {

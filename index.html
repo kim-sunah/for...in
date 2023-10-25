@@ -14,10 +14,9 @@
       <label>영화 검색 : </label>
       <input type="text" placeholder="영화 제목을 검색해 보세요" />
       <button type="submit" id="search_btn">검색</button>
-      <select
-        id="selectSort"
-        onchange="sortChange(this.options[this.selectedIndex].value);"
-      >
+    </form>
+    <form id="sortForm">
+      <select id="selectSort" onchange="sortChange(this.value);">
         <option value="X">정렬</option>
         <option value="highAverage">별점 높은순</option>
         <option value="lowAverage">별점 낮은순</option>
