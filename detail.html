@@ -5,110 +5,495 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/detail.css">
 </head>
+<link rel="stylesheet" href="css/detail.css">
+<link rel="stylesheet" href="css/detail1.css">
+<link rel="stylesheet" href="css/detail2.css">
+<link rel="stylesheet" href="css/detail3.css">
 
 <body>
-    <header>
-        <div>
-            <div onclick="location.href='index.html'" class="header_logo">
-                <h1>for...in</h1>
-            </div>
-        </div>
-    </header>
-    <div class="section_detail">
-        <!-- 상세상단 기본정보 -->
-        <div class="box_basic">
-            <div class="info_poster">
-                <a class="movie_image">
-
-                </a>
-            </div>
-            <div class="info_detail">
-                <div class="detail_tit">
-                    <div class="detail_tit_fixed" aria-hidden="true">
-                        <div class="inner_tit">
-                            <span class="txt_tit">제목</span>
-                        </div>
-                    </div>
-                    <h3 class="tit_movie">
-                        <span class="txt_tit">
-                            제목
-                        </span>
-                        <span class="txt_tag">
-                            <span class="txt_state state_dday day1"><span
-                                    class="screen_out">개봉</span>D-1</span><!-- dday 4일이상 부터 폰트컬러 블랙 -->
-                        </span>
-                    </h3>
-                    <div class="head_origin">
-                        <span class="txt_name">제목, 개봉일</span>
-                    </div>
-                    <input type="hidden" id="releaseStatus" value="true">
-                    <input type="hidden" id="releaseFlag" value="C">
-                </div>
-                <div class="detail_cont">
-                    <div class="inner_cont">
-                        <dl class="list_cont">
-                            <dt>개봉</dt>
-                            <dd class="release_date">2023.10.25</dd>
-                        </dl>
-                        <dl class="list_cont">
-                            <dt>장르</dt>
-                            <dd class="genres"></dd>
-                        </dl>
-                        <dl class="list_cont">
-                            <dt>국가</dt>
-                            <dd class="production_countries">국가</dd>
-                        </dl>
-                        <dl class="list_cont">
-                            <dt>등급</dt>
-                            <dd>
-                                전체관람가
-                            </dd>
-                        </dl>
-                        <dl class="list_cont">
-                            <dt>러닝타임</dt>
-                            <dd class="runtime">
-                                123분
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="inner_cont">
-                        <dl class="list_cont">
-                            <dt>평점</dt>
-                            <dd class="vote_average"><span class="ico_movie ico_star"></span>8.2</dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- 상세하단 -->
-        <div class="box_detailinfo">
-            <!-- 탭메뉴 -->
-            <div class="tabmenu_wrap">
-                <strong class="screen_out">영화제 탭메뉴</strong>
-                <ul class="list_tabmenu" role="tablist" data-tiara-layer="tab">
-                    <li role="presentation" class="on"><!-- 선택시 on 클래스 추가 -->
-                        <a class="link_tabmenu">
-                            <span class="txt_tabmenu">주요정보</span>
+    <div class="page_wrap movie_wrap">
+        <header class="normal smaller no_animation smaller subtle nav-down">
+            <div class="content">
+                <div class="sub_media">
+                    <div class="nav_wrapper">
+                        <a class="logo" href="index.html">
+                            <img src="image/moovieLogo.png" alt="The Movie Database (TMDB)">
                         </a>
-                </ul>
+
+                        <!-- <ul class="dropdown_menu navigation k-widget k-reset k-header k-menu k-menu-horizontal"
+                            data-role="menu" tabindex="0" role="menubar">
+                            <li aria-haspopup="true" class="k-item k-menu-item k-state-default k-first" role="menuitem">
+                                <a class="no_click k-link k-menu-link" href="/movie?language=ko">영화<span
+                                        class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></a>
+
+                                <ul class="k-group k-menu-group" role="menu" aria-hidden="true">
+                                    <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                            href="/movie?language=ko" class="k-link k-menu-link">인기</a></li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/movie/now-playing?language=ko" class="k-link k-menu-link">현재 상영 중</a>
+                                    </li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/movie/upcoming?language=ko" class="k-link k-menu-link">개봉 예정</a></li>
+                                    <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                            href="/movie/top-rated?language=ko" class="k-link k-menu-link">높은 평점</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li aria-haspopup="true" class="k-item k-menu-item k-state-default" role="menuitem">
+                                <a class="no_click k-link k-menu-link" href="/tv?language=ko">TV 프로그램<span
+                                        class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></a>
+
+                                <ul class="k-group k-menu-group" role="menu" aria-hidden="true">
+                                    <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                            href="/tv?language=ko" class="k-link k-menu-link">인기</a></li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/tv/airing-today?language=ko" class="k-link k-menu-link">오늘 방영</a>
+                                    </li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/tv/on-the-air?language=ko" class="k-link k-menu-link">TV 방영 중</a>
+                                    </li>
+                                    <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                            href="/tv/top-rated?language=ko" class="k-link k-menu-link">높은 평점</a></li>
+                                </ul>
+                            </li>
+                            <li aria-haspopup="true" class="k-item k-menu-item k-state-default" role="menuitem">
+                                <a class="no_click k-link k-menu-link" href="/person?language=ko">인물<span
+                                        class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></a>
+
+                                <ul class="k-group k-menu-group" role="menu" aria-hidden="true">
+                                    <li class="k-item k-menu-item k-state-default k-first k-last" role="menuitem"><a
+                                            href="/person?language=ko" class="k-link k-menu-link">인기 인물</a></li>
+                                </ul>
+                            </li>
+                            <li aria-haspopup="true" class="k-item k-menu-item k-state-default k-last" role="menuitem">
+                                <a class="no_click k-link k-menu-link" href="#">More<span
+                                        class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></a>
+
+                                <ul class="k-group k-menu-group" role="menu" aria-hidden="true">
+                                    <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                            href="/discuss?language=ko" class="k-link k-menu-link">토론 내역</a></li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/leaderboard?language=ko" class="k-link k-menu-link">기여 랭킹</a></li>
+                                    <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                            href="/talk?language=ko" class="k-link k-menu-link">지원</a></li>
+                                    <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                            href="/login?to=read_me&amp;redirect_uri=/docs" target="_blank"
+                                            class="k-link k-menu-link">API</a></li>
+                                </ul>
+                            </li>
+                        </ul> -->
+                    </div>
+
+                    <div class="flex">
+                        <ul class="primary">
+                            <li class="user">
+                                <a class="no_click tooltip_hover" title="프로필과 설정" href="/u/time020" data-role="tooltip">
+                                    <span class="avatar background_color orange">t</span>
+                                </a>
+                            </li>
+                            <li class="glyph search_buttons">
+                                <a class="search" href="/search"><span class="glyphicons_v2 search blue"></span></a>
+                                <a class="close hide" href="/search"><span
+                                        class="glyphicons_v2 menu-close invert svg"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="contents">
-                <h4 class="screen_out">주요정보</h4>
-                <div class="detail_basicinfo">
-                    <div class="movie_summary">
-                        <div class="info_desc" data-tiara-layer="desc">
-                            <div class="desc_cont expand" id="overview">
-                               내용
+            <div class="search_bar hide">
+                <section class="search show_search_false">
+                    <div class="sub_media">
+                        <form id="search_form" action="/search?language=ko" method="get" accept-charset="utf-8">
+                            <input type="hidden" name="language" value="ko">
+                            <label>
+                                <span tabindex="-1" role="presentation"
+                                    class="k-widget k-autocomplete k-autocomplete-clearable k-state-default"
+                                    style=""><input dir="auto" id="search_v4" name="query" type="text" tabindex="1"
+                                        autocorrect="off" autofill="off" autocomplete="off" spellcheck="false"
+                                        placeholder="영화, TV 프로그램, 인물 검색" value="" data-role="autocomplete"
+                                        class="k-input" role="textbox" aria-haspopup="true" aria-disabled="false"
+                                        aria-readonly="false" aria-owns="search_v4_listbox"
+                                        aria-autocomplete="list"><span unselectable="on" class="k-clear-value k-hidden"
+                                        title="clear" role="button" tabindex="-1"><span
+                                            class="k-icon k-i-x"></span></span><span
+                                        class="k-icon k-i-loading k-hidden"></span></span>
+                            </label>
+                            <input type="submit" disabled="">
+                        </form>
+                    </div>
+                </section>
+            </div>
+            <div class="k-list-container k-popup k-group k-reset" id="search_v4-list" data-role="popup"
+                aria-hidden="true" style="display: none; position: absolute;">
+                <div class="k-group-header" style="display:none"></div>
+                <div class="k-list-scroller" unselectable="on">
+                    <ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="search_v4_listbox"
+                        aria-live="polite" data-role="staticlist" role="listbox"></ul>
+                </div>
+                <div class="k-nodata" style="display:none">
+                    <div></div>
+                </div>
+            </div>
+        </header>
+
+
+        <main id="main" class="smaller  subtle show_search_false">
+            <section class="inner_content movie_content backdrop poster">
+                <style>
+                    html {
+                        --primaryColor: rgba(220.5, 220.5, 220.5, 1);
+                        --primaryColorContrast: #000000;
+                    }
+
+                    div.header {
+                        background: linear-gradient(to bottom right, rgba(220.5, 220.5, 220.5, 1), rgba(220.5, 220.5, 220.5, 0.84));
+                    }
+
+                    div.column_wrapper div.settings_panel h3 {
+                        color: var(--primaryColorContrast);
+                    }
+
+                    div.settings_panel h3.background_color {
+                        background-color: var(--primaryColor);
+                    }
+
+                    section.inner_content a,
+                    section.media_panel div.menu ul li.active a {
+                        color: #000;
+                    }
+
+                    section.inner_content a:hover {
+                        color: rgba(0, 0, 0, 0.5);
+                    }
+
+                    section.media_panel div.menu ul li.active {
+                        border-bottom-color: #000000;
+                    }
+
+
+                    p.new_button.rounded,
+                    section.content_score div.content_score div,
+                    div.leaderboard div.histogram div.bar span {
+                        border-color: var(--primaryColor);
+                        background-color: var(--primaryColor);
+                        color: var(--primaryColorContrast);
+                    }
+
+                    p.new_button.rounded a,
+                    section.content_score div.content_score div p {
+                        color: var(--primaryColorContrast);
+                    }
+
+                    div.header.large.first {
+                        border-bottom: 1px solid var(--primaryColor);
+                        background-position: left calc((50vw - 170px) - 340px) top;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                    }
+
+                    @media only screen and (min-width: 1900px) {
+                        div.header.large.first {
+                            background-size: auto;
+                        }
+                    }
+
+                    section.inner_content div.custom_bg {
+                        background-image: linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 50%, rgba(220.5, 220.5, 220.5, 0.84) 100%);
+                    }
+                </style>
+
+                <div id="shortcut_bar_scroller" class="scroller_wrap shortcut_bar_wrapper is_fading">
+                    <ul id="new_shortcut_bar"
+                        class="dropdown_menu scroller k-widget k-reset k-header k-menu k-menu-horizontal"
+                        data-role="menu" tabindex="0" role="menubar">
+                        <li class="true k-item k-menu-item k-state-default k-first" aria-haspopup="true"
+                            role="menuitem"><span class="k-link k-menu-link">
+                                개요
+
+                                <span class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></span>
+                            <ul class="media group k-group k-menu-group" role="menu" aria-hidden="true">
+                                <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                        href="/movie/987917-old-dads?language=ko" class="k-link k-menu-link">메인</a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/titles?language=ko"
+                                        class="k-link k-menu-link">Alternative Titles</a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/cast?language=ko" class="k-link k-menu-link">출연진
+                                        &amp; 제작진</a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/releases?language=ko"
+                                        class="k-link k-menu-link">Release Dates</a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/translations?language=ko"
+                                        class="k-link k-menu-link">Translations</a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/watch?language=ko" class="k-link k-menu-link">Watch
+                                        Now</a></li>
+
+                                <li class="spacer k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/changes?language=ko" title="수정내역"
+                                        class="k-link k-menu-link">수정내역</a></li>
+
+
+                                <li class="spacer k-item k-menu-item k-state-default" role="menuitem"><a
+                                        class="no_click report k-link k-menu-link" window="movie" href="#"
+                                        title="보고">보고</a></li>
+                                <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                        class="keyboard_s edit_page k-link k-menu-link"
+                                        href="/movie/987917-old-dads/edit?active_nav_item=primary_facts&amp;language=ko"
+                                        title="편집">편집</a></li>
+                            </ul>
+                        </li>
+                        <li class="false k-item k-menu-item k-state-default" aria-haspopup="true" role="menuitem"><span
+                                class="k-link k-menu-link">
+                                미디어
+
+                                <span class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></span>
+                            <ul class="media number_group k-group k-menu-group" role="menu" aria-hidden="true">
+                                <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                        href="/movie/987917-old-dads/images/backdrops?language=ko"
+                                        class="k-link k-menu-link">배경 <span class="count">18</span></a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/images/logos?language=ko"
+                                        class="k-link k-menu-link">Logos <span class="count">10</span></a></li>
+                                <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                        href="/movie/987917-old-dads/images/posters?language=ko"
+                                        class="k-link k-menu-link">포스터 <span class="count">26</span></a></li>
+                                <li aria-haspopup="true" class="k-item k-menu-item k-state-default k-last"
+                                    role="menuitem"><span class="k-link k-menu-link">
+                                        동영상
+
+                                        <span class="k-menu-expand-arrow k-icon k-i-arrow-60-right"></span></span>
+                                    <ul class="number_group k-group k-menu-group" role="menu" aria-hidden="true">
+                                        <li class="k-item k-menu-item k-state-default k-first k-last" role="menuitem"><a
+                                                href="/movie/987917-old-dads/edit?active_nav_item=videos&amp;language=ko"
+                                                class="k-link k-menu-link"><span class="glyphicons_v2 plus"></span> 동영상
+                                                추가</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="false k-item k-menu-item k-state-default" aria-haspopup="true" role="menuitem"><span
+                                class="k-link k-menu-link">
+                                팬덤
+
+                                <span class="k-menu-expand-arrow k-icon k-i-arrow-60-down"></span></span>
+                            <ul class="media k-group k-menu-group" role="menu" aria-hidden="true">
+                                <li aria-haspopup="true" class="k-item k-menu-item k-state-default k-first"
+                                    role="menuitem"><span class="k-link k-menu-link">
+                                        토론 내역
+
+                                        <span class="k-menu-expand-arrow k-icon k-i-arrow-60-right"></span></span>
+                                    <ul class="number_group k-group k-menu-group" role="menu" aria-hidden="true">
+                                        <li class="k-item k-menu-item k-state-default k-first" role="menuitem"><a
+                                                href="/movie/987917-old-dads/discuss?language=ko"
+                                                class="k-link k-menu-link">개요</a></li>
+                                        <li class="k-item k-menu-item k-state-default" role="menuitem"><a
+                                                href="/movie/987917-old-dads/discuss/category/5047951f760ee3318900009a?language=ko"
+                                                class="k-link k-menu-link">일반 <span class="count">0</span></a></li>
+                                        <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                                href="/movie/987917-old-dads/discuss/category/504794a319c29527aa000640?language=ko"
+                                                class="k-link k-menu-link">내용 관련 문제 <span class="count">0</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="k-item k-menu-item k-state-default k-last" role="menuitem"><a
+                                        href="/movie/987917-old-dads/reviews?language=ko"
+                                        class="k-link k-menu-link">리뷰</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header large border first" id = 'backgroundImage'>
+                    <div class="keyboard_s custom_bg">
+
+                        <div class="single_column">
+                            <section id="original_header" class="images inner">
+                                <div class="poster_wrapper true">
+                                    <div class="poster">
+                                        <div class="image_content backdrop">
+                                        </div>
+                                        <div class="zoom">
+                                            <a href="#" class="no_click"><span
+                                                    class="glyphicons_v2 fullscreen white"></span> 확장</a>
+                                        </div>
+                                    </div>
+                                    <div class="ott_offer">
+                                        <div class="text_wrapper">
+                                            <div class="loading_wrapper">
+                                                <div class="ball-scale-multiple loader white">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                            <div class="button">
+                                                <div class="provider">
+                                                    <img src="https://www.themoviedb.org/t/p/original/t2yyOv40HZeVlLjYsCsPHnWLk4W.jpg"
+                                                        width="36" height="36" alt="Now Streaming on Netflix">
+                                                </div>
+                                                <div class="text">
+                                                    <span>
+                                                        <h4>Now Streaming</h4>
+                                                        <h3><a class="no_click"
+                                                                href="/movie/987917-old-dads/watch?language=ko"
+                                                                title="Now Streaming on Netflix">Watch Now</a></h3>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="header_poster_wrapper true">
+                                    <section class="header poster">
+                                        <div class="title ott_true" dir="auto">
+
+                                            <h2 class="6">
+                                                <a href="/movie/987917-old-dads?language=ko" id="title">늙은 아빠들</a>
+                                                <span class="tag release_date" id="year">(2023)</span>
+                                            </h2>
+                                            <div class="facts">
+                                                <span class="certification">
+                                                    R
+                                                </span>
+                                                <span class="release" id="release_date">
+                                                    2023/10/20 (KR)
+                                                </span>
+                                                <span class="genres">
+                                                    <a href="/genre/35-/movie" id="genres"></a>
+                                                </span>
+                                                <span class="runtime">
+                                                    1h 42m
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <!-- <ul class="auto actions">
+
+                                            <li class="chart">
+                                                <div class="consensus details" style="">
+                                                    <div class="outer_ring">
+                                                        <div class="user_score_chart" data-percent="65.0"
+                                                            data-track-color="#423d0f" data-bar-color="#d2d531">
+                                                            <div class="percent">
+                                                                <span class="icon icon-r65"></span>
+                                                            </div>
+                                                            <canvas height="120" width="120"
+                                                                style="height: 60px; width: 60px;"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text">회원<br>점수</div>
+                                            </li>
+
+                                            <li class="tooltip use_tooltip list tooltip_hover" title="목록에 추가"
+                                                data-role="tooltip">
+                                                <a class="no_click" href="#"><span
+                                                        class="glyphicons_v2 thumbnails-list white"></span></a>
+                                            </li>
+                                            <li class="tooltip use_tooltip" title="즐겨찾기 표시" data-role="tooltip">
+                                                <a id="favourite" class="no_click add_to_account_list favourite"
+                                                    href="#"><span class="glyphicons_v2 heart white false"></span></a>
+                                            </li>
+                                            <li class="tooltip use_tooltip" title="회원님의 관심 목록에 추가" data-role="tooltip">
+                                                <a id="watchlist" class="no_click add_to_account_list watchlist"
+                                                    href="#"><span
+                                                        class="glyphicons_v2 bookmark white false"></span></a>
+                                            </li>
+                                            <li class="tooltip use_tooltip rating tooltip_hover" title="평가하세요!"
+                                                data-role="tooltip">
+                                                <a id="rate_it" class="no_click rating" href="#"><span
+                                                        class="glyphicons_v2 star white false"></span></a>
+                                            </li>
+
+                                            <li class="video none">
+                                                <a class="no_click play_trailer" href="#" data-site="YouTube"
+                                                    data-id="mU01e6KjM2s" data-title="트레일러 재생"><span
+                                                        class="glyphicons_v2 play"></span> 트레일러 재생</a>
+                                            </li>
+                                        </ul> -->
+                                        <div class="header_info">
+                                            <h3 dir="auto">개요</h3>
+                                            <div class="overview" dir="auto">
+                                                <p>밀레니얼 세대가 회사의 CEO가 되고, 유치원 원장이 막강한 권한을 지닌 세상. 짜증을 달고 사는 중년 아빠와 두 절친이
+                                                    변화하는 세상에 괴리감을 느낀다.</p>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </section>
+
+                            <div id="ott_offers_window" class="hidden">
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="screen_out" onclick="review()">review</button>
-            </div>
-        </div>
+                <div id="media_v4" class="media movie_v4 header_large">
+                    <div class="column_wrapper">
+                        <div class="content_wrapper">
+                            <div>
+                                <div class="white_column">
+                                    <section class="panel top_billed scroller">
+                                        <h3 dir="auto">주요 출연진</h3>
+
+                                        <div id="cast_scroller" class="scroller_wrap should_fade is_fading">
+                                            <ol class="people scroller" id = "credits">
+                                            </ol>
+                                            <div class="style_wrapper"></div>
+                                        </div>
+
+                                        <p class="new_button"><a class=""
+                                                href="/movie/987917-old-dads/cast?language=ko">총 출연진 &amp; 제작진</a></p>
+                                    </section>
+
+                                    <section class="panel media_panel social_panel">
+                                        <section class="review">
+                                            <div class="menu">
+                                                <h3 dir="auto">사용자의견</h3>
+                                                <ul>
+                                                    <li class="active" dir="auto"><a id="reviews" class="media_panel"
+                                                            href="#">리뷰 <span>0</span></a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="content">
+                                                <div class="original_content">
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </section>
+                                    </section>
+
+                                    <section class="panel media_panel media scroller">
+                                        <div class="menu">
+                                            <h3 dir="auto">미디어</h3>
+                                            <ul>
+                                                <li class="active" dir="auto"><a id="popular" class="media_panel"
+                                                        href="#">인기 있는</a></li>
+                                                <li dir="auto"><a id="videos" class="media_panel" href="#">동영상
+                                                        <span>0</span></a></li>
+                                                <li dir="auto"><a id="backdrops" class="media_panel" href="#">배경
+                                                        <span>18</span></a></li>
+                                                <li dir="auto"><a id="posters" class="media_panel" href="#">포스터
+                                                        <span>26</span></a></li>
+                                                <li class="view_all"></li>
+                                            </ul>
+                                        </div>
+                                        <div id="media_scroller" class="scroller_wrap is_fading">
+                                            <div class="h_scroller content scroller" id = "movie_images">
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
