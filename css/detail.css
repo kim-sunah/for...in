@@ -1,0 +1,20 @@
+div.header.large.first {
+    border-bottom: 1px solid var(--primaryColor);
+    background-position: left calc((50vw - 170px) - 340px) top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+div.header {
+    background: linear-gradient(to bottom right, rgba(220.5, 220.5, 220.5, 1), rgba(220.5, 220.5, 220.5, 0.84));
+}
+
+.k-grid .k-grid-header-wrap, .k-grid table, body * {
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+section.inner_content div.custom_bg {
+    background-image: linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 50%, rgba(220.5, 220.5, 220.5, 0.84) 100%);
+}
