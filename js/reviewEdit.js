@@ -4,6 +4,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase
 import { getDocs, getDoc, deleteDoc, addDoc, collection, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 import { query, orderBy, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 // import { getAnalytics } from "firebase/analytics";
+
+const _REVIEW = "review"
+let reviewArr = [];
+if (JSON.parse(localStorage.getItem(_REVIEW))) {
+    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));;
+}
 // Firebase 구성 정보 설정
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -20,6 +26,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const url = new URL(document.location.href).searchParams.get('id');
+const review_id = new URL(document.location.href).searchParams.get('review_id');
 const options = {
     method: 'GET',
     headers: {
@@ -47,8 +54,16 @@ let seconds = ('0' + today.getSeconds()).slice(-2);
 
 let dateString = year + '-' + month + '-' + day + " " + hours + ':' + minutes + ':' + seconds;;
 
+
+async function getReview() {
+    const docSnap = await getDoc(doc(db, url, review_id));
+    let review = docSnap.data()['review']
+    review = review.replace(/<br>/g, '\n');
+    $('.editor textarea').attr("placeholder", review)
+}
+
 function templet(response) {
-    console.log(response)
+    getReview();
     $('.col1').append(`
         <a href="detail.html?id=${response.id}">
             <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="쏘우 10">
@@ -59,41 +74,24 @@ function templet(response) {
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
         <div id="editor-textarea" class="column">
             <div class="editor">
-                <textarea placeholder="You can start writing your review here."></textarea>
+                <textarea></textarea>
             </div>
         </div>
     `)
     $('.cancle').attr('href', `detail.html?id=${url}`)
 }
 
-$('#review').on('submit', (enent) => {
-    enent.preventDefault();
-    addComment()
+$('#edit').on('click', async (enent) => {
+    let review_text = $('textarea').val();
+    review_text = review_text.replace(/\n/g, '<br>');
+    await updateDoc(doc(db, url, review_id), {
+        'review': review_text
+    });
+    alert("수정완료")
+    location.href = `detail.html?id=${url}`;
 })
-
-async function addComment() {
-    let review = $('textarea').val();
-    review=review.replace(/\n/g, '<br>');
-    let name = localStorage.getItem('userName')
-    if ($('textarea').val() == "") {
-        alert('댓글이 입력되지 않았습니다.')
-        return
-    } else if (name == undefined) {
-        name = prompt("성함을 알려주세요~");
-        if (name == "") return;
-        else localStorage.setItem('userName', name);
-    }
-    let password = prompt("게시글의 비밀번호를 입력해주세요");
-    if (password) {
-        let doc = {
-            'id': today,
-            'userName': localStorage.getItem('userName'),
-            'review': review,
-            'password': password,
-            'date': dateString,
-        }
-        await addDoc(collection(db, url), doc);
-        alert('저장 완료!');
-        location.href = `detail.html?id=${url}`;
-    }
-}
+$('.delete').on('click', async (enent) => {
+    await deleteDoc(doc(db, url, review_id));
+    alert('삭제 완료!');
+    location.href = `detail.html?id=${url}`;
+})

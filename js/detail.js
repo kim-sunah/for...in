@@ -123,7 +123,7 @@ async function getCommentList(response) {
                                     <div class="post_info">
                                         <div class="flex_wrapper">
                                             <div class="link_wrapper">
-                                                <a>${doc.data().review}</a>
+                                                <a href="reviewEdit.html?id=${response.id}&review_id=${doc.id}">${doc.data().review}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,6 @@ async function getCommentList(response) {
                             </tr>
                         
             `)
-            console.log(doc.data())
         })
         $('.original_content').append(`
         <p class="new_button"><a class="" href="review.html?id=${response.id}">리뷰 작성하기</a></p>
