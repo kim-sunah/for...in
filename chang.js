@@ -56,9 +56,9 @@ function join_mem() {//회원가입
     let id_val = document.getElementById("join_mem_id_value").value;//생성할 id값 
     let password_val = document.getElementById("join_mem_password_value").value;//생성할 password 값 
     copy_user[num] = Object.assign({}, user);//새로 만들 유저 
-    console.log(name_check());
-    console.log(id_check());
-    console.log(password_check());
+   // console.log(name_check());
+ //   console.log(id_check());
+   // console.log(password_check());
     if (name_check() + id_check() + password_check() == 3) { //검사 결과가 모두 참 일 떄
         console.log("성공");
         copy_user[num].name = name_val;
@@ -153,14 +153,14 @@ function log_in() {//로그인
     //firebase에서 유저데이터를 가져옴
     let log_id_val = document.getElementById("id_value").value;//로그인 할 아이디값
     let log_password_val = document.getElementById("password_value").value;//로그인 할 비밀번호값
-    
+    let i=0;
     docs.forEach((doc) => {
         let row = doc.data();
         if(log_id_val==row["user_d"]["id"] && log_password_val ==row["user_d"]["password"]){
-            console.log("실패");
-            check= false;
-            
+            online_user(i);
+            return_main_page();
         }
+        i++;
     }); 
     /*
     for (let i = 1; i < num; i++) {
