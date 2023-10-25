@@ -6,7 +6,10 @@ import { query, orderBy, where } from "https://www.gstatic.com/firebasejs/9.22.0
 // import { getAnalytics } from "firebase/analytics";
 
 const _REVIEW = "review"
-var reviewArr = [];
+let reviewArr = [];
+if(JSON.parse(localStorage.getItem(_REVIEW))){
+    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));;
+}
 // Firebase 구성 정보 설정
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -40,15 +43,15 @@ fetch(`https://api.themoviedb.org/3/movie/${url}?append_to_response=credits&lang
 
 
 
-var today = new Date();
-var year = today.getFullYear();
-var month = ('0' + (today.getMonth() + 1)).slice(-2);
-var day = ('0' + today.getDate()).slice(-2);
-var hours = ('0' + today.getHours()).slice(-2);
-var minutes = ('0' + today.getMinutes()).slice(-2);
-var seconds = ('0' + today.getSeconds()).slice(-2);
+let today = new Date();
+let year = today.getFullYear();
+let month = ('0' + (today.getMonth() + 1)).slice(-2);
+let day = ('0' + today.getDate()).slice(-2);
+let hours = ('0' + today.getHours()).slice(-2);
+let minutes = ('0' + today.getMinutes()).slice(-2);
+let seconds = ('0' + today.getSeconds()).slice(-2);
 
-var dateString = year + '-' + month + '-' + day + " " + hours + ':' + minutes + ':' + seconds;;
+let dateString = year + '-' + month + '-' + day + " " + hours + ':' + minutes + ':' + seconds;;
 
 function templet(response) {
     console.log(response)
@@ -90,15 +93,15 @@ async function addComment() {
         let doc = {
             'id': today,
             'userName': localStorage.getItem('userName'),
-            'comment': $('textarea').val(),
+            'review': $('textarea').val(),
             'password': password,
             'date': dateString,
         }
-        await addDoc(collection(db, "review"), doc);
+        await addDoc(collection(db, url), doc);
         alert('저장 완료!');
         reviewArr.push(doc)
         localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
-        getCommentList()
+        location.href= `detail.html?id=${url}`;
     }
 }
 // $('.cancle').on('click',location.href(`detail.html?id=${url}`))
