@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="index.css" />
 </head>
+
 <body>
-    <header class = "header">
+    <header class="header">
         <h1>내배캠 최고 평점 영화 콜렉션</h1>
     </header>
-    <form class = "search" id ="search">
+    <form class="search" id="search">
         <label>영화 검색 : </label>
         <input type="text" placeholder="영화 제목을 검색해 보세요">
-        <button type="submit" id = "search_btn">검색</button>
+        <button type="submit" id="search_btn">검색</button>
+        <button id="log_join">로그인</button>
     </form>
-    <selection class = "cardList" id = "cardList">
+    <selection class="cardList" id="cardList">
     </selection>
-    <script src="index.js"></script>
+    <script type="module" src="./chang.js"></script>
+    <script type="module" src="./index.js"></script>
+   
+      
+    </script>
+
 </body>
+
 </html>
