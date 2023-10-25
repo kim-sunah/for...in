@@ -2,6 +2,7 @@ const cardList = document.getElementById("cardList");
 const searchFrom = document.getElementById("search");
 const searchInput = searchFrom.querySelector("input");
 const movieCard = document.querySelector(".movieCard");
+const selectSort = document.getElementById("selectSort");
 searchFrom.addEventListener("submit", search);
 
 var movieClick = function (event) {
@@ -17,7 +18,6 @@ const options = {
 };
 
 const movieList = [];
-
 function loadData() {
   for (let i = 1; i < 6; i++) {
     fetch(
@@ -44,41 +44,61 @@ function loadData() {
             movieDate,
           });
         });
-        var ascSortedList = movieList.sort((a, b) => a.movie > b.movie ? 1 : -1);
+        movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
       })
       .catch((err) => console.error(err))
+      .finally(() => {
+        search();
+      });
   }
 }
 
 loadData();
-console.log(movieList)
 
+function sortChange(e) {
+  if (e == "lowAverage") {
+    return movieList.sort((a, b) => (a.movieAverage > b.movieAverage ? 1 : -1));
+  } else if (e == "highAverage") {
+    return movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
+  } else if (e == "new") {
+    return movieList.sort((a, b) =>
+      new Date(a.movieDate) < new Date(b.movieDate) ? 1 : -1
+    );
+  } else if (e == "abc") {
+    return movieList.sort((a, b) => (a.movie > b.movie ? 1 : -1));
+  } else if (e == "cba") {
+    return movieList.sort((a, b) => (a.movie < b.movie ? 1 : -1));
+  } else if (e == "popularity") {
+    return movieList.sort((a, b) =>
+      a.moviePopularity < b.moviePopularity ? 1 : -1
+    );
+  } else {
+    return movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
+  }
+}
 
-// console.log(ascSortedList.sort())
-// console.log(ascSortedList)
+console.log(movieList);
 
+function search(event) {
+  if (event != null) {
+    event.preventDefault();
+  }
+  const searchWord = searchInput.value.toUpperCase();
+  cardList.innerHTML = "";
 
-// function search(event) {
-//   if (event != null) {
-//     event.preventDefault();
-//   }
-//   const searchWord = searchInput.value.toUpperCase();
-//   cardList.innerHTML = "";
-//   var ascSortedList = movieList.sort((a, b) => a.movie > b.movie ? 1 : -1);
-
-//   // movieList
-//   //   .filter((element) => {
-//   //     if (element.movie.toUpperCase().includes(searchWord)) {
-//   //       return true;
-//   //     }
-//   //   })
-//   //   .map((element) => {
-//   //     cardList.innerHTML += `
-//   //           <div class = "movieCard" id = "${element.movieId}" onclick = "movieClick(${element.movieId})" >
-//   //               <img class = "movieImg" src = "https://image.tmdb.org/t/p/w500/${element.movieImage}"/>
-//   //               <h3 class = "movieTitle">${element.movie}</h3>
-//   //               <p class = "movieTxt" >${element.movieOverview}</p>
-//   //               <p class = "movieaverage">Rating :  ${element.movieAverage}</p>
-//   //           </div>`;
-//   //   });
-// }
+  movieList
+    .filter((element) => {
+      if (element.movie.toUpperCase().includes(searchWord)) {
+        return true;
+      }
+    })
+    .map((element) => {
+      cardList.innerHTML += `
+            <div class = "movieCard" id = "${element.movieId}" onclick = "movieClick(${element.movieId})" >
+                <img class = "movieImg" src = "https://image.tmdb.org/t/p/w500/${element.movieImage}"/>
+                <h3 class = "movieTitle">${element.movie}</h3>
+                <p class = "movieTxt" >${element.movieOverview}</p>
+                <p class = "movieaverage">Rating :  ${element.movieAverage}</p>
+            </div>`;
+    });
+}

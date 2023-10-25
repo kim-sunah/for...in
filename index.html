@@ -14,13 +14,17 @@
       <label>영화 검색 : </label>
       <input type="text" placeholder="영화 제목을 검색해 보세요" />
       <button type="submit" id="search_btn">검색</button>
-      <select id="selectSort">
-        <option>별점 높은순</option>
-        <option>별점 낮은순</option>
-        <option>최신순</option>
-        <option>오름차순(A~Z)</option>
-        <option>내림차순(Z~A)</option>
-        <option>인기순</option>
+      <select
+        id="selectSort"
+        onchange="sortChange(this.options[this.selectedIndex].value);"
+      >
+        <option value="X">정렬</option>
+        <option value="highAverage">별점 높은순</option>
+        <option value="lowAverage">별점 낮은순</option>
+        <option value="new">최신순</option>
+        <option value="abc">오름차순(A~Z)</option>
+        <option value="cba">내림차순(Z~A)</option>
+        <option value="popularity">인기순</option>
       </select>
     </form>
     <selection class="cardList" id="cardList"> </selection>
