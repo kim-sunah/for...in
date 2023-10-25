@@ -2,7 +2,27 @@ const closeModalBtn = document.getElementById("closeModalBtn")
 const startBtn = document.getElementById("startBtn")
 const modal = document.getElementById("myModal");
 const genreFilter = document.getElementById("genreFilter")
-
+const genreTranslations = {
+    "Action": "액션",
+    "Adventure": "모험",
+    "Animation": "애니메이션",
+    "Comedy": "코미디",
+    "Crime": "범죄",
+    "Documentary": "다큐멘터리",
+    "Drama": "드라마",
+    "Family": "가족",
+    "Fantasy": "판타지",
+    "History": "역사",
+    "Horror": "호러",
+    "Music": "음악",
+    "Mystery": "미스터리",
+    "Romance": "로맨스",
+    "Science Fiction": "과학 소설",
+    "TV Movie": "TV 영화",
+    "Thriller": "스릴러",
+    "War": "전쟁",
+    "Western": "서부",
+};
 
 const options = {
     method: "GET",
@@ -17,6 +37,11 @@ startBtn.addEventListener("click", () => {
     modal.style.display = "block"
 
 });
+startBtn.addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
+        searchMovies();
+    }
+});
 
 fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
     .then(response => response.json())
@@ -27,7 +52,8 @@ fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
         genres.forEach(genre => {
             const option = document.createElement("option");
             option.value = genre.id;
-            option.text = genre.name;
+            option.text = genreTranslations[genre.name] || genre.name;
+
             genreFilter.appendChild(option);
         });
     })
@@ -42,6 +68,7 @@ applyFilterBtn.addEventListener("click", () => {
     search();
     modal.style.display = "none";
 });
+
 console.log("hello")
 
 function search(event) {
