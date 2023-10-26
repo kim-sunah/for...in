@@ -4,7 +4,7 @@ const modal = document.getElementById("myModal");
 const genreFilter = document.getElementById("genreFilter");
 const applyFilterBtn = document.getElementById("applyFilterBtn");
 
-const genrelist = [];\
+const genrelist = [];
 
 const genreoptions = {
     method: 'GET',
