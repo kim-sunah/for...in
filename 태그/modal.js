@@ -1,108 +1,116 @@
-const closeModalBtn = document.getElementById("closeModalBtn")
-const startBtn = document.getElementById("startBtn")
+const closeModalBtn = document.getElementById("closeModalBtn");
+const startBtn = document.getElementById("startBtn");
 const modal = document.getElementById("myModal");
-const genreFilter = document.getElementById("genreFilter")
-const genreTranslations = {
-    "Action": "액션",
-    "Adventure": "모험",
-    "Animation": "애니메이션",
-    "Comedy": "코미디",
-    "Crime": "범죄",
-    "Documentary": "다큐멘터리",
-    "Drama": "드라마",
-    "Family": "가족",
-    "Fantasy": "판타지",
-    "History": "역사",
-    "Horror": "호러",
-    "Music": "음악",
-    "Mystery": "미스터리",
-    "Romance": "로맨스",
-    "Science Fiction": "과학 소설",
-    "TV Movie": "TV 영화",
-    "Thriller": "스릴러",
-    "War": "전쟁",
-    "Western": "서부",
+const genreFilter = document.getElementById("genreFilter");
+const applyFilterBtn = document.getElementById("applyFilterBtn");
+
+const genrelist = [];
+
+const genreoptions = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNTVkOGU5NzhjNTQyZGQ0YjE2NWQ4BbAayICdXcDqCMAhKfcB6MK6IIkRfsujypX6hXGcRt8'
+    }
 };
 
-const options = {
-    method: "GET",
-    headers: {
-        accept: "application/json",
-        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzliNjIwOTFmMzY0Y2M4MzczMGExMzU3ZWM1YjE3ZCIsInN1YiI6IjY1MmY3NTcyMzU4ZGE3NWI1ZDAwODcyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j6JDptMTCwZT8Gkr2PbQ2rWV5r85H1fKNwS4iF1_o3U",
-    },
+const genrecategory = {
+    "Action": 28,
+    "Adventure": 12,
+    "Animation": 16,
+    "Comedy": 35,
+    "Crime": 80,
+    "Documentary": 99,
+    "Drama": 18,
+    "Family": 10751,
+    "Fantasy": 14,
+    "History": 36,
+    "Horror": 27,
+    "Music": 10402,
+    "Mystery": 9648,
+    "Romance": 10749,
+    "Science Fiction": 878,
+    "TV Movie": 10770,
+    "Thriller": 53,
+    "War": 10752,
+    "Western": 37,
 };
+
+
+const genreKeys = Object.keys(genrecategory);
+genreKeys.forEach(genre => {
+    const option = document.createElement("option");
+    option.value = genrecategory[genre];
+    option.textContent = genre;
+    genreFilter.appendChild(option);
+});
+
+function makegenrelist() {
+    for (let i = 1; i < 6; i++) {
+        fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${i}`, options)
+            .then(response => response.json())
+            .then(data => {
+                data.results.forEach((element) => {
+                    const genre = element.genre_ids;
+                    genrelist.push({
+                        genre
+                    });
+                });
+            })
+            .catch(err => console.error(err));
+    }
+}
+
+makegenrelist();
 
 startBtn.addEventListener("click", () => {
-    console.log("test")
-    modal.style.display = "block"
-
+    console.log("test");
+    modal.style.display = "block";
 });
+
 startBtn.addEventListener('keyup', event => {
     if (event.key === 'Enter') {
         searchMovies();
     }
 });
 
-fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
-    .then(response => response.json())
-    .then(data => {
-
-        const genres = data.genres;
-
-        genres.forEach(genre => {
-            const option = document.createElement("option");
-            option.value = genre.id;
-            option.text = genreTranslations[genre.name] || genre.name;
-
-            genreFilter.appendChild(option);
-        });
-    })
-    .catch(error => console.error(error));
-
 closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-
 applyFilterBtn.addEventListener("click", () => {
-    search();
+    searchMovies();
     modal.style.display = "none";
 });
 
-console.log("hello")
+function searchMovies() {
 
-function search(event) {
-    if (event != null) {
-        event.preventDefault();
-    }
-
-    const searchgenre = genreFilter.value;
     const cardList = document.getElementById("cardList");
+    const searchgenre = genreFilter.value;
+    var movieCards = [];
 
-    let movieCards = [];
+    for (let i = 1; i < 6; i++) {
+        fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${i}`, genreoptions)
+            .then(response => response.json())
+            .then(data => {
+                const results = data.results;
 
+                results.forEach(element => {
+                    if (element.genre_ids.includes(parseInt(searchgenre))) {
+                        const movieCard = `
+                            <div class="movieCard" id="${element.id}" onclick="movieClick(${element.id})">
+                                <img class="movieImg" src="https://image.tmdb.org/t/p/w500/${element.poster_path}"/>
+                                <h3 class="movieTitle">${element.original_title}</h3>
+                                <p class="movieTxt">${element.overview}</p>
+                                <p class="movieAverage">Rating: ${element.vote_average}</p>
+                            </div>`;
 
-    fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${searchgenre}&language=en`, options)
-        .then(response => response.json())
-        .then(data => {
-            const results = data.results;
+                        movieCards.push(movieCard);
+                    }
+                });
 
-
-            results.forEach(element => {
-                const movieCard = `
-                    <div class="movieCard" id="${element.id}" onclick="movieClick(${element.id})">
-                        <img class="movieImg" src="https://image.tmdb.org/t/p/w500/${element.poster_path}"/>
-                        <h3 class="movieTitle">${element.original_title}</h3>
-                        <p class="movieTxt">${element.overview}</p>
-                        <p class="movieAverage">Rating: ${element.vote_average}</p>
-                    </div>`;
-
-
-                movieCards.push(movieCard);
-            });
-
-
-            cardList.innerHTML = movieCards.join("");
-        })
-        .catch(err => console.error(err));
+                cardList.innerHTML = movieCards.join("");
+            })
+            .catch(err => console.error(err));
+    }
 }
