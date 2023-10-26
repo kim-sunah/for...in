@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333d51;
+  display: grid;
+  grid-template-areas:
+    "logo . . loginName"
+    "logo . . login"
+    ". . . searchBox";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  padding: 1.5rem;
+}
+
+.search {
+  grid-area: searchBox;
+}
+
+.search input {
+  margin-left: 1rem;
+  min-width: 15em;
+  font-size: 1rem;
+  padding: 1%;
+}
+
+.search button {
+  margin-left: 1em;
+  min-width: 4em;
+}
+
+#log_join {
+  grid-area: login;
+}
+
+.search select {
+  margin-left: 3rem;
+}
+
+.장르 {
+  position: absolute;
+  border-radius: 20px;
+  left: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+#filterform {
+  margin-right: 10px;
+}
+
+#checkbox {
+  margin-left: 10px;
+}

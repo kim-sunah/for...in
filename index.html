@@ -6,19 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="./태그/태그.css" />
+    <!-- <link rel="stylesheet" href="./태그/태그.css" /> -->
+    <link rel="stylesheet" href="header.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
-        <h1>내배캠 최고 평점 영화 콜렉션</h1>
-    </header>
-    <form class="search" id="search">
-        <label>영화 검색 : </label>
-        <input type="text" placeholder="영화 제목을 검색해 보세요" />
-        <button type="submit" id="search_btn">검색</button>
+        <div class="logo">
+            <img src="./image/moovieLogo.png" id="moovieLogo">
+          </div>
+        <form class="search" id="search">
+            <input type="text" placeholder="Search" />
+            <button type="submit" id="search_btn">검색</button>
+        </form>
         <button id="log_join">로그인</button>
-    </form>
+    </header>
+
     <div class="장르">
         <form>
             <select id="genreFilter" onchange="sortChange(this.value);">
