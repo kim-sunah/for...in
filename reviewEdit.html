@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/review.css">
+    <link rel="stylesheet" href="css/edit.css">
+</head>
+
+<body>
+    <div class="review colmask text_editor">
+        <form id="review" method="post">
+            <input type="hidden" name="media_type" value="movie">
+            <input type="hidden" name="media_id" value="951491">
+            <input id="content" type="hidden" name="content" value="">
+            <input type="hidden" name="id" value="">
+
+            <div class="colmid">
+                <div class="col1">
+                </div>
+                <div id="text" class="col2">
+                </div>
+            </div>
+            <div id="action_bar">
+                <p>
+                    <a class = "delete">Delete</a>
+                    <a class = "cancle">Cancel</a>
+                    <input id="edit" type="submit" value="edit">
+                </p>
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+    <script src="js/reviewEdit.js" type="module"></script>
+</body>
+
+</html>

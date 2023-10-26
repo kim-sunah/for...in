@@ -1921,7 +1921,6 @@ section.leaderboard p,section.media_panel p {
 }
 
 section.media_panel div.menu,section.media_panel div.menu ul {
-    width: 100%;
     box-sizing: border-box
 }
 
