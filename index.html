@@ -30,7 +30,7 @@
     <div class="장르">
         <form>
             <select id="genreFilter" onchange="sortChange(this.value);">
-                <option > 장르</option>
+                <option id="genrelist"> 장르</option>
         </form>
     
         <div class="form-check" id="checkbox">
@@ -39,15 +39,6 @@
         </div>
     </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content" id="modal-content">
-            <span class="close" id="closeModalBtn">&times;</span>
-            <select id="genreFilter">
-          <option id="genrelist">장르</option>
-        </select>
-            <button type="button" id="applyFilterBtn">검색하기</button>
-    </div>
-    </div>
     <form id="sortForm">
         <select id="selectSort" onchange="sortChange(this.value);">
         <option value="X">정렬</option>
@@ -60,10 +51,7 @@
       </select>
     </form>
     <selection class="cardList" id="cardList"> </selection>
-    <!-- <script src="new.js"></script> -->
-    <!-- <script src="index.js"></script> -->
-    <!-- <script type="module" src="./chang.js"></script> -->
-    <!-- <script src="./태그/modal.js"></script> -->
+    <!-- <script type="module" src="chang.js"></script> -->
     <script src="./태그/adult.js"></script>
     <script src="sum.js"></script>
 </body>

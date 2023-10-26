@@ -5,11 +5,7 @@ const movieCard = document.querySelector(".movieCard");
 searchFrom.addEventListener("submit", search);
 
 //우섭님꺼
-const closeModalBtn = document.getElementById("closeModalBtn");
-const startBtn = document.getElementById("startBtn");
-const modal = document.getElementById("myModal");
 const genreFilter = document.getElementById("genreFilter");
-const applyFilterBtn = document.getElementById("applyFilterBtn");
 const genrecategory = {
   Action: 28,
   Adventure: 12,
