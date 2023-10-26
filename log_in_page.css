@@ -1,6 +1,34 @@
+.log_join_page{
+background-color: chocolate;
+
+padding: 250px;
+text-align: center;
+color: aliceblue;
+/*animation: up-down 1.4s infinite ;*/
+
+}
+@keyframes up-down{
+    from{
+      transform: translatey(0px);
+    }
+    to{
+      transform: translatey(-20px);
+    }
+  }
+
+.log_join_fuc{
+    
+    background-color: aqua;
+    width: 300px;
+    right:  500px;
+    padding-left: 40px; 
+    margin-left: 800px;
+}
+
 .join_mem_parent{
     display: none;
 }
+
 .back_log{
     display: none;
 }
