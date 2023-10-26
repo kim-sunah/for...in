@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="index.css"/>
-    <link rel="stylesheet" href="./태그/태그.css">
-</head>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./태그/태그.css" />
+  </head>
 
-<body>
+  <body>
     <header class="header">
-        <h1>내배캠 최고 평점 영화 콜렉션</h1>
+      <h1>내배캠 최고 평점 영화 콜렉션</h1>
     </header>
     <form class="search" id="search">
-        <label>영화 검색 : </label>
-        <input type="text" placeholder="영화 제목을 검색해 보세요">
-        <button type="submit" id="search_btn">검색</button>
-        <button id="log_join">로그인</button>
+      <label>영화 검색 : </label>
+      <input type="text" placeholder="영화 제목을 검색해 보세요" />
+      <button type="submit" id="search_btn">검색</button>
+      <button id="log_join">로그인</button>
     </form>
     <div class="장르">
-        <button type="button" id="startBtn">장르 검색하기
-        </button>
-        <div class="form-check" id="checkbox">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheck">
-            <label class="form-check-label" for="flexCheckDefault">
-                성인
-            </label>
-        </div>
-
+      <button type="button" id="startBtn">장르 검색하기</button>
+      <div class="form-check" id="checkbox">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="flexCheck"
+        />
+        <label class="form-check-label" for="flexCheckDefault"> 성인 </label>
+      </div>
     </div>
 
     <div id="myModal" class="modal">
-        <div class="modal-content" id="modal-content">
-            <span class="close" id="closeModalBtn">&times;</span>
-            <select id="genreFilter">
-                <option value="">장르</option>
-            </select>
-            <button type="button" id="applyFilterBtn">검색하기</button>
-        </div>
+      <div class="modal-content" id="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <select id="genreFilter">
+          <option value="">장르</option>
+        </select>
+        <button type="button" id="applyFilterBtn">검색하기</button>
+      </div>
     </div>
     <form id="sortForm">
       <select id="selectSort" onchange="sortChange(this.value);">
