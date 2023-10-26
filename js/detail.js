@@ -1,3 +1,9 @@
+const _REVIEW = "review"
+let reviewArr = [];
+if (JSON.parse(localStorage.getItem(_REVIEW))) {
+    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));;
+}
+console.log(reviewArr)
 const url = new URL(document.location.href).searchParams.get('id');
 const options = {
     method: 'GET',
@@ -13,29 +19,6 @@ fetch(`https://api.themoviedb.org/3/movie/${url}?append_to_response=credits&lang
         detailpage(response)
     )
     .catch(err => console.error(err));
-
-// Firebase SDK 라이브러리 가져오기
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs, getDoc, deleteDoc, addDoc, collection, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { query, orderBy, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-// import { getAnalytics } from "firebase/analytics";
-
-// Firebase 구성 정보 설정
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyCauRZ02WOgnWSXDX7pEVv9xJ-g25bOyWE",
-    authDomain: "sparta5-65934.firebaseapp.com",
-    databaseURL: "https://sparta5-65934-default-rtdb.firebaseio.com",
-    projectId: "sparta5-65934",
-    storageBucket: "sparta5-65934.appspot.com",
-    messagingSenderId: "381298859705",
-    appId: "1:381298859705:web:b65a54d74b3b7f765b8568",
-};
-
-// Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 //상세페이지 기본정보
 function detailpage(response) {
@@ -61,6 +44,7 @@ function detailpage(response) {
         `)
         response.credits.cast[i]
     }
+
     $('#media_scroller').append(`
     <div class="h_scroller content scroller" id = "movie_images">
         <div class="backdrop">
@@ -70,6 +54,7 @@ function detailpage(response) {
         <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="늙은 아빠들"></div>
     </div>
         `)
+
     $('.image_content').html(`
     <img class="poster lazyload lazyloaded"
     src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2${response.poster_path}"
@@ -83,14 +68,9 @@ function detailpage(response) {
     getCommentList(response)
 }
 
-async function getCommentList(response) {
-    // console.log(url)
-    const q = query(
-        collection(db, String(url)),
-        orderBy('date', 'desc')
-    );
-    let docs = await await getDocs(q);
-    if (docs.size == 0) {
+function getCommentList(response) {
+    console.log(reviewArr.length)
+    if (reviewArr.length == 0) {
         $('.original_content').html(`
         <div class="review_container zero">
             <div class="content zero">
@@ -115,35 +95,31 @@ async function getCommentList(response) {
                         </tbody>
                         </table>
                     </div>
+                    <p class="new_button"><a class="" href="review.html?id=${response.id}">리뷰 작성하기</a></p>
         `)
-        docs.forEach((doc) => {
+        reviewArr.forEach((doc) => {
             $('#review_list').append(`
-                            <tr class="open">
+                            <tr class="open" id="${doc.id}" >
                                 <td class="subject">
                                     <div class="post_info">
                                         <div class="flex_wrapper">
                                             <div class="link_wrapper">
-                                                <a href="reviewEdit.html?id=${response.id}&review_id=${doc.id}">${doc.data().review}</a>
+                                                <a >${doc.review}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p>${doc.data().date}<br> 작성자 : <span class="username"><a>${doc.data().userName}</a></span></p>
+                                    <p>${doc.date}<br> 작성자 : <span class="username"><a>${doc.userName}</a></span></p>
                                 </td>
                             </tr>
-                        
             `)
         })
-        $('.original_content').append(`
-        <p class="new_button"><a class="" href="review.html?id=${response.id}">리뷰 작성하기</a></p>
-        `)
+        $(document).on('click', '.open', function (e) {
+            location.href = `reviewEdit.html?id=${url}&review_id=${e.currentTarget.id}`;
+        })
     }
-
-    return docs;
 }
-
-//동영상 가져오기
 
 //배경 이미지 가져오기
 //포스터 가져오기
@@ -215,7 +191,7 @@ $('.menu li').click(function (e) {
         fetch(`https://api.themoviedb.org/3/movie/${url}/images`, options)
             .then(response => response.json())
             .then(response => response.backdrops.forEach(e => {
-                    $('#video_list').append(`
+                $('#video_list').append(`
                     <div class="backdrop">
                     <img loading="lazy" class="backdrop" src="https://www.themoviedb.org//t/p/w533_and_h300_bestv2${e.file_path}" srcset="https://www.themoviedb.org//t/p/w533_and_h300_bestv2${e.file_path} 1x, https://www.themoviedb.org/t/p/w1066_and_h600_bestv2${e.file_path} 2x" alt="쏘우 10">
                     </div>
@@ -233,7 +209,7 @@ $('.menu li').click(function (e) {
                     <img loading="lazy" class="backdrop" src="https://www.themoviedb.org//t/p/w533_and_h300_bestv2${e.file_path}" srcset="https://www.themoviedb.org//t/p/w533_and_h300_bestv2${e.file_path} 1x, https://www.themoviedb.org/t/p/w1066_and_h600_bestv2${e.file_path} 2x" alt="쏘우 10">
                     </div>
                     `)
-            })
+                })
             ).catch(err => console.error(err));
     }
 });

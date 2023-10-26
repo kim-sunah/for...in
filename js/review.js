@@ -1,24 +1,8 @@
-// Firebase SDK 라이브러리 가져오기
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { getDocs, getDoc, deleteDoc, addDoc, collection, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { query, orderBy, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-// import { getAnalytics } from "firebase/analytics";
-// Firebase 구성 정보 설정
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyCauRZ02WOgnWSXDX7pEVv9xJ-g25bOyWE",
-    authDomain: "sparta5-65934.firebaseapp.com",
-    databaseURL: "https://sparta5-65934-default-rtdb.firebaseio.com",
-    projectId: "sparta5-65934",
-    storageBucket: "sparta5-65934.appspot.com",
-    messagingSenderId: "381298859705",
-    appId: "1:381298859705:web:b65a54d74b3b7f765b8568",
-};
-
-// Firebase 인스턴스 초기화
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const _REVIEW = "review"
+let reviewArr = [];
+if (JSON.parse(localStorage.getItem(_REVIEW))) {
+    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));;
+}
 const url = new URL(document.location.href).searchParams.get('id');
 const options = {
     method: 'GET',
@@ -35,6 +19,12 @@ fetch(`https://api.themoviedb.org/3/movie/${url}?append_to_response=credits&lang
     )
     .catch(err => console.error(err));
 
+function guid() {
+    function _s4() {
+        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+    }
+    return _s4() + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + '-' + _s4() + _s4() + _s4();
+}
 
 
 let today = new Date();
@@ -73,7 +63,7 @@ $('#review').on('submit', (enent) => {
 
 async function addComment() {
     let review = $('textarea').val();
-    review=review.replace(/\n/g, '<br>');
+    review = review.replace(/\n/g, '<br>');
     let name = localStorage.getItem('userName')
     if ($('textarea').val() == "") {
         alert('댓글이 입력되지 않았습니다.')
@@ -86,14 +76,15 @@ async function addComment() {
     let password = prompt("게시글의 비밀번호를 입력해주세요");
     if (password) {
         let doc = {
-            'id': today,
+            'id': guid(), // UUID 생성
             'userName': localStorage.getItem('userName'),
             'review': review,
             'password': password,
             'date': dateString,
         }
-        await addDoc(collection(db, url), doc);
         alert('저장 완료!');
+        reviewArr.push(doc)
+        localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
         location.href = `detail.html?id=${url}`;
     }
 }
