@@ -11,6 +11,7 @@ let review = null;
 for (let i of reviewArr) {
     if (i.id === review_id) {
         review = i
+        break;
     }
 }
 
