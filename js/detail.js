@@ -1,9 +1,10 @@
 const _REVIEW = "review"
 let reviewArr = [];
+let movieReviewArr = [];
 if (JSON.parse(localStorage.getItem(_REVIEW))) {
-    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));;
+    reviewArr = JSON.parse(localStorage.getItem(_REVIEW));
 }
-console.log(reviewArr)
+
 const url = new URL(document.location.href).searchParams.get('id');
 const options = {
     method: 'GET',
@@ -20,6 +21,13 @@ fetch(`https://api.themoviedb.org/3/movie/${url}?append_to_response=credits&lang
     )
     .catch(err => console.error(err));
 
+for (let i of reviewArr) {
+    if (i.movieId === url) {
+        movieReviewArr.push(i);
+    }
+}
+
+console.log(movieReviewArr)
 //상세페이지 기본정보
 function detailpage(response) {
     $("#title").text(response.title)
@@ -69,8 +77,8 @@ function detailpage(response) {
 }
 
 function getCommentList(response) {
-    console.log(reviewArr.length)
-    if (reviewArr.length == 0) {
+    console.log(movieReviewArr.length)
+    if (movieReviewArr.length == 0) {
         $('.original_content').html(`
         <div class="review_container zero">
             <div class="content zero">
@@ -97,7 +105,7 @@ function getCommentList(response) {
                     </div>
                     <p class="new_button"><a class="" href="review.html?id=${response.id}">리뷰 작성하기</a></p>
         `)
-        reviewArr.forEach((doc) => {
+        movieReviewArr.forEach((doc) => {
             $('#review_list').append(`
                             <tr class="open" id="${doc.id}" >
                                 <td class="subject">
@@ -116,19 +124,19 @@ function getCommentList(response) {
             `)
         })
         $(document).on('click', '.open', function (e) {
-            for (let i of reviewArr) {
+            for (let i of movieReviewArr) {
                 if (i.id === e.currentTarget.id) {
-                    if(i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")){
+                    if (i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")) {
                         alert("성함이 다릅니다")
                         return;
                     }
-                    if(i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")){
+                    if (i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")) {
                         alert("비밀번호가 다릅니다")
                         return;
                     }
                 }
             }
-            
+
             location.href = `reviewEdit.html?id=${url}&review_id=${e.currentTarget.id}`;
         })
     }

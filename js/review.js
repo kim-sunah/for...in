@@ -81,6 +81,7 @@ async function addComment() {
             'review': review,
             'password': password,
             'date': dateString,
+            'movieId':url
         }
         alert('저장 완료!');
         reviewArr.push(doc)
