@@ -116,6 +116,19 @@ function getCommentList(response) {
             `)
         })
         $(document).on('click', '.open', function (e) {
+            for (let i of reviewArr) {
+                if (i.id === e.currentTarget.id) {
+                    if(i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")){
+                        alert("성함이 다릅니다")
+                        return;
+                    }
+                    if(i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")){
+                        alert("비밀번호가 다릅니다")
+                        return;
+                    }
+                }
+            }
+            
             location.href = `reviewEdit.html?id=${url}&review_id=${e.currentTarget.id}`;
         })
     }
