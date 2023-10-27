@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   
+    .background {
+        position: absolute;
+        display: grid;
+        grid-template-columns: 500px 200px 500px;
+        margin-left: 300px;
+        text-align: center;
+    }
+
+    .game_title {
+        background-color: skyblue;
+        width: 500px;
+        height: 100px;
+        padding: 5px;
+        text-align: center;
+        margin: auto;
+    }
+
+    .score_text {
+        text-align: center;
+    }
+
+    .up {
+        margin-left: 50px;
+        width: 100px;
+        height: 100px;
+        background-image: url(data:image/png;base64,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);
+        background-position: center;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .down {
+        margin-left: 50px;
+        width: 100px;
+        height: 100px;
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC_pddIWgU52JpHw_B3RYEx92QDrieATY4HA&usqp=CAU);
+        background-position: center;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+
+<body class="all" ></body>    <span id="back_main" onclick="back_main()">돌아가기</span>
+    <div class="game_title">
+        <h1>더 높게 더 낮게</h1>
+    </div>
+    <div class="score_text">
+        <span id="b_score"></span>
+        <span id="score"> 점수: 0</span>
+    </div>
+
+    <div class="background">
+        <span class="left_movie" id="L_movie">좌</span>
+        <span class="up" onclick="click_up()"></span>
+        <span class="right_movie" id="R_movie">우</span>
+        <span></span>
+        <span class="down" onclick="click_down()"></span>
+    </div>
+
+    <script>
+        //document.getElementById("L_movie").id
+        document.getElementById("b_score").innerHTML="최고 점수 : "+localStorage.getItem('best_score');
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMDVjYzE4YTk5Y2U4MTc1Y2I4YTI2YjRmMzhkNjkxMCIsInN1YiI6IjY1MmY0OWU4MDI0ZWM4MDEwMTU0MTkyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fn5pNmujTnJOpP-y8uUDOYk0DX44yKCTXfaPIpm3a1M'
+            }
+        };
+        let page_num = 1;//페이지
+        let post_num = 0;
+        let equir = false;
+        let left_movie_num = rand(0, 99);
+        let right_movie_num = rand(0, 99);
+        let score = 0;
+      //  let best_score = 0;
+        //
+        while (!equir) {//좌우가 같은지 확인
+            if (right_movie_num == left_movie_num) {//같으면 새롭게 생성
+                right_movie_num = rand(0, 99);
+                equir = false;
+            }
+            else {
+                equir = true;
+            }
+        }
+        page_num = Math.floor(1 + left_movie_num / 20);
+        post_num = left_movie_num % 20;
+        fetch_data(page_num, post_num, "L_movie");
+
+        page_num = Math.floor(1 + right_movie_num / 20);
+        post_num = right_movie_num % 20;
+        fetch_data(page_num, post_num, "R_movie");
+
+
+        function rand(min, max) {//랜덤 수를 얻는 함수
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function fetch_data(i, num, lr) {
+            fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${i}`, options)
+                .then(async (response) =>
+                    await response.json()).then(val => {
+                        f = val["results"][num];
+                        make_post(f, lr);
+                        return f;
+                    }
+                    )
+                .catch(err => console.error(err));
+        }
+        function make_post(post, lr) {//lr 은 왼쪽 오른쪽
+
+            let movie_poster = `
+            <span id="${lr}_child">
+            <img src="https://image.tmdb.org/t/p/w500${post["backdrop_path"]}" alt="..."> 
+            <span class="movie_card_title">  <h2>${post["title"]}</h2></span>
+            <span>투표수</span>
+            <span id="${lr}_vote_count"> ${post["vote_count"]}</span>
+            </span>
+            `;
+            document.getElementById(`${lr}`).innerHTML = movie_poster;
+            if (lr == "L_movie") {
+                document.getElementById(`${lr}_vote_count`).style.display = "block";
+            }
+            else{
+                document.getElementById(`${lr}_vote_count`).style.display = "none";
+            }
+
+        }
+        //화살표 눌럿을때 함수
+        
+        function click_up() {//높다
+            let l_m = document.getElementById("L_movie");
+            let r_m = document.getElementById("R_movie");
+            let L_pop = document.getElementById("L_movie_vote_count");
+            let R_pop = document.getElementById("R_movie_vote_count");
+            R_pop.style.display = "block";
+            setTimeout(function(){
+                if (Number(L_pop.innerText) < Number(R_pop.innerText)) {//정답
+                let clone_m = document.getElementById("R_movie_child");
+                let fe = clone_m.cloneNode(true); //노드 복사 
+                left_movie_num = right_movie_num;
+                fe.setAttribute("id", "L_movie_child")
+                fe.lastChild.previousSibling.setAttribute("id","L_movie_vote_count");
+              //  console.log(fe.lastChild.previousSibling.id);
+                l_m.replaceChildren(l_m.appendChild(fe));
+                right_movie_num = rand(0, 99);
+                equir = false;
+                while (!equir) {//좌우가 같은지 확인
+                    if (right_movie_num == left_movie_num) {//같으면 새롭게 생성
+                        right_movie_num = rand(0, 99);
+                        equir = false;
+                    }
+                    else {
+                        equir = true;
+                    }
+                }
+                page_num = Math.floor(1 + right_movie_num / 20);
+                post_num = right_movie_num % 20;
+                r_m.replaceChildren();
+                fetch_data(page_num, post_num, "R_movie");
+                // document.getElementById("L_movie").after(clone_m) ;
+                score++;
+              
+            }
+            else {
+                alert("틀렸습니다.");
+                score = 0;
+                window.location.reload();
+            }
+            if( Number(localStorage.getItem('best_score')) < score && Number(localStorage.getItem('best_score'))!=null){
+             
+                localStorage.setItem('best_score', score);
+               }
+               document.getElementById("score").innerHTML="점수 : "+score;
+               document.getElementById("b_score").innerHTML="최고 점수 : "+localStorage.getItem('best_score');
+        
+
+            }, 600);
+          
+            }
+        function click_down() {
+            let l_m = document.getElementById("L_movie");
+            let r_m = document.getElementById("R_movie");
+            let L_pop = document.getElementById("L_movie_vote_count");
+            let R_pop = document.getElementById("R_movie_vote_count");
+            R_pop.style.display = "block";
+            setTimeout(function(){
+                if (Number(L_pop.innerText) > Number(R_pop.innerText))  {//정답
+                let clone_m = document.getElementById("R_movie_child");
+                let fe = clone_m.cloneNode(true);
+                left_movie_num = right_movie_num;
+                fe.setAttribute("id", "L_movie_child")
+                fe.lastChild.previousSibling.setAttribute("id","L_movie_vote_count");
+              //  console.log(fe.lastChild.previousSibling.id);
+                l_m.replaceChildren(l_m.appendChild(fe));
+                right_movie_num = rand(0, 99);
+                equir = false;
+                while (!equir) {//좌우가 같은지 확인
+                    if (right_movie_num == left_movie_num) {//같으면 새롭게 생성
+                        right_movie_num = rand(0, 99);
+                        equir = false;
+                    }
+                    else {
+                        equir = true;
+                    }
+                }
+                page_num = Math.floor(1 + right_movie_num / 20);
+                post_num = right_movie_num % 20;
+                r_m.replaceChildren();
+                fetch_data(page_num, post_num, "R_movie");
+
+                // document.getElementById("L_movie").after(clone_m) ;
+                score++;
+            }
+            else {
+                alert("틀렸습니다.");
+                score = 0;
+                window.location.reload();
+            }
+            if( Number(localStorage.getItem('best_score'))<score && Number(localStorage.getItem('best_score'))!=null){
+                localStorage.setItem('best_score', score);
+               }
+               document.getElementById("score").innerHTML="점수 : "+score;
+               document.getElementById("b_score").innerHTML="최고 점수 : "+ localStorage.getItem('best_score');
+            }, 600);
+                  }
+        //정답오답 함수
+        //
+        function back_main(){
+            location.href = "log_join.html";
+        }
+    </script>
+</body>
+
+</html>

@@ -2,40 +2,45 @@
     display: flex;
    
     overflow:hidden;
-    width: 1800px;
-    background-color: aqua;
-text-align: center;
-color: aliceblue;
+    width: 1900px;
+    
+    text-align: center;
+    color: aliceblue;
 }
 .log_join_page{
 
     display: flex;
-animation: left-right 90s infinite ;
+animation: left-right 120s infinite ;
 
 }
 @keyframes left-right{
     from{
         transform: translate(0%);
         transition-property: transform;
-        transition-duration: 10s;
+        transition-duration: 45s;
         transition-timing-function: linear;
     }
     to{
-        transform: translate(-90%);
+        transform: translate(-100%);
         transition-property: transform;
-        transition-duration: 10s;
+        transition-duration: 45s;
         transition-timing-function: linear;
     }
   }
 
 .log_join_fuc{
-    background-color: aqua;
+   
     width: 300px;
     right:  500px;
     padding-left: 40px; 
-    margin-left: 800px;
+    margin: auto;
 }
-
+.G_J_mem{
+    display: block;
+}
+.J_mem{
+    display: none;
+}
 .join_mem_parent{
     display: none;
 }
