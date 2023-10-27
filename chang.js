@@ -41,17 +41,16 @@ const click_log_in = document.getElementById("log_in_button");//log_join페이�
 const click_log_join = document.getElementById("join_mem");//log_join페이지의 "회원가입" 버튼
 const back_log_in_btn = document.getElementById("back_log_in");//log_join페이지의 "로그인 하러가기" 버튼
 const click_go_join_mem_btn = document.getElementById("go_join_mem");
-const click_move_movie=document.getElementById("logjoin_page");
+const click_move_movie=document.getElementById("log_in_user");
 
 try {//index페이지
     if (JSON.parse(localStorage.getItem('login_user')) != null) {
-        console.log("로그인유저이씅ㅁ");
         document.getElementById("log_in_user").innerHTML = JSON.parse(localStorage.getItem('login_user'))["name"];
+        click_move_movie.onclick=function(){ movie_game()};//로그인 했을때만 이동
         click_move_log_join.style.display = "none";//로그인 버튼 사라짐
         click_log_out_btn.style.display = "block";//로그아웃 버튼 생김
     }
     else {
-        console.log("로그인유저없음");
         click_move_log_join.style.display = "block";//로그인 버튼 생김
         click_log_out_btn.style.display = "none";//로그아웃 버튼 사라짐
     }
@@ -60,7 +59,7 @@ try {//index페이지
     click_log_out_btn.onclick = function () { log_out() };
 }
 catch {//log_join페이지
-    click_move_movie.onclick=function(){ movie_game()};
+    
     click_log_in.onclick = function () { log_in() }; //로그인
     click_go_join_mem_btn.onclick = function () { go_join_mem() };
     click_log_join.onclick = function () { join_mem() };//회원가입
@@ -100,12 +99,12 @@ function go_join_mem() {
     back_log_in_btn.style.display = "block";
 
 }
-
 function name_check() {//이름 유효성검사
     let check = false;
     var all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
     let name_val = document.getElementById("join_mem_name_value").value;//생성할 이름값 
-    if (name_val.length < 7 && name_val.length > 1 && !(all_S_character.test(name_val))) {
+   
+    if ((name_val.length < 7 && name_val.length > 1 ) && !(all_S_character.test(name_val))) {
         //길이 제한 + !특수문자
         check = true;
     }
@@ -121,16 +120,18 @@ function id_check() {//id 유효성 검사
     var all_number = /[0-9]/; //숫자
     var all_english = /[a-zA-Z]/; //영어
     var all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
-    //var all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
     let id_val = document.getElementById("join_mem_id_value").value;//생성할 id값 
-    if (5 < id_val.length && id_val.length < 31 && !(all_korean.test(id_val) || (all_english.test(id_val) && all_number.test(id_val)))) {
+    console.log(id_val);
+    
+    if ((4 < id_val.length && id_val.length < 31) && !(all_korean.test(id_val) && (all_english.test(id_val) && all_number.test(id_val)))) {
         //길이제한 + !(한글)+ (영어나 숫자) 전부 만족
+        console.log(id_val.length);
         check = true;
     }
     else {
-        alert("id는 6자이상30자 이하이고 한글을 사용할수 없습니다");
+        alert("id는 5자이상30자 이하이고 한글을 사용할수 없습니다");
         return false;
-    }  //  console.log("id은 6글자에서 30글자 사이로 해야 합니다")
+    } 
     //사용할수 없는 id인 경우 아래는 실행하지 않음
     docs.forEach((doc) => {
         let row = doc.data();
@@ -139,14 +140,7 @@ function id_check() {//id 유효성 검사
             check = false;
         }
     });
-    /*
-        for (let i = 1; i < num; i++) {
-            if (id_val == copy_user[i].id) {
-                //  console.log("id가 같음");
-                return false;
-            }
-        }*/
-    //console.log("사용할 수 있는 id");
+
     return check;
 }
 
@@ -154,14 +148,12 @@ function password_check() {//password 유효성 검사
     var all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
     let password_val = document.getElementById("join_mem_password_value").value;//생성할 password 값 
     if (password_val.length < 31 && password_val.length > 6 && !(all_korean.test(password_val))) {
-        //길이제한+ !한글
         return true;
     }
     else {
-        console.log("비밀번호는 7~30자 이하에 한글을 사용할 수 없습니다")
+        alert("비밀번호는 7~30자 이하에 한글을 사용할 수 없습니다")
         return false;
-    }   //  console.log("password은 7글자에서 30글자 사이로 해야 합니다")
-    //사용할수 없는 id인 경우 아래는 실행하지 않음
+    }   
 }
 
 function log_in() {//로그인 
@@ -181,6 +173,7 @@ function log_in() {//로그인
 if(!log){
     alert("아이디 또는 비밀번호가 잘못되었습니다.");
 }  
+
     return false;//로그인 실패
 
 }

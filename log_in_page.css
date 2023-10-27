@@ -17,13 +17,13 @@ animation: left-right 120s infinite ;
     from{
         transform: translate(0%);
         transition-property: transform;
-        transition-duration: 45s;
+        transition-duration: 30s;
         transition-timing-function: linear;
     }
     to{
         transform: translate(-100%);
         transition-property: transform;
-        transition-duration: 45s;
+        transition-duration: 30s;
         transition-timing-function: linear;
     }
   }
