@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <!-- <link rel="stylesheet" href="header.css" /> -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,40 +21,18 @@
                 <div class="nav_wrapper">
                     <a class="logo" href="index.html">
                         <img src="image/moovieLogo.png" alt="The Movie Database (TMDB)">
-                        <button id="log_join">Login</button>
+                        
                     </a>
-                </div>
-                <div class="searchBox">
-                    <div class="optionBox">
-                        <form id="sortForm">
-                            <select id="selectSort" onchange="sortChange(this.value);">
-                                <option value="X">정렬</option>
-                                <option value="highAverage">별점 높은순</option>
-                                <option value="lowAverage">별점 낮은순</option>
-                                <option value="new">최신순</option>
-                                <option value="abc">오름차순(A~Z)</option>
-                                <option value="cba">내림차순(Z~A)</option>
-                                <option value="popularity">인기순</option>
-                            </select>
-                        </form>
-                        <form id="genreForm">
-                            <select id="genreFilter" onchange="sortChange(this.value);">
-                                <option id="genrelist"> 장르</option>
-                        </form>
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck" />
-                        <label class="form-check-label" for="flexCheckDefault"> 성인 </label>
-                    </div>
                 </div>
                 <div class="flex">
                     <ul class="primary">
-                        <li class="user">
-                            <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">
-                            </a>
+                        <li class="user" id = "is_login">
+                            <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip"></a>
                         </li>
-                        <li class="glyph search_buttons">
-                            <form action="search">
-                                <a class="search" href="/search">
-                                    <input type="text" placeholder="Search" />
+                        <li class="search-container">
+                            <form id="searchFrom">
+                                <input type="text" placeholder="Search" id="search_input" />
+                                <a class="search" id = "searchClick">
                                     <span class="glyphicons_v2 search blue"></span>
                                 </a>
                             </form>
@@ -64,11 +42,30 @@
             </div>
         </div>
     </header>
-
+    <div class="optionBox">
+            <select id="selectSort" onchange="sortChange(this.value);">
+                <option value="X">정렬</option>
+                <option value="highAverage">별점 높은순</option>
+                <option value="lowAverage">별점 낮은순</option>
+                <option value="new">최신순</option>
+                <option value="abc">오름차순(A~Z)</option>
+                <option value="cba">내림차순(Z~A)</option>
+                <option value="popularity">인기순</option>
+            </select>
+            <select id="genreFilter" onchange="sortChange(this.value);">
+                <option id="genrelist"> 장르</option>
+        <input class="form-check-input" type="checkbox" value="" id="flexCheck" />
+        <label class="form-check-label" for="flexCheckDefault"> 성인 </label>
+    </div>
     <selection class="cardList" id="cardList"> </selection>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
     <script type="module" src="chang.js"></script>
-    <script src="./태그/adult.js"></script>
-    <script src="sum.js"></script>
+    <script src="js/adult.js"></script>
+    <script src="js/index.js" ></script>
 </body>
 
 </html>

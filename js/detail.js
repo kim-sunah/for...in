@@ -30,8 +30,15 @@ for (let i of reviewArr) {
 console.log(movieReviewArr)
 //상세페이지 기본정보
 function detailpage(response) {
-    if(localStorage.getItem('login_user')){
-    $("#userName").text(`${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다`)
+    if (localStorage.getItem('login_user')) {
+        $('#is_login').html(
+            `
+          <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다</a>
+          <button id="log_out">Logout</button>
+          `
+        )
+    } else {
+        $('#is_login').html("<button id='log_join'>Login</button>")
     }
     $("#title").text(response.title)
     $("#year").text(`(${response.release_date.slice(0, 4)})`)
@@ -247,5 +254,12 @@ $('.menu li').click(function (e) {
     }
 });
 
+$('#search_input').on("keydown", function (event) {
+    if (event.key === "Enter") {
+        location.href = `index.html?searchWord=${$('#search_input').val()}`;
+    }
+});
 
-
+$("#searchClick").on("click", function (e) {
+    location.href = `index.html?searchWord=${$('#search_input').val()}`;
+});

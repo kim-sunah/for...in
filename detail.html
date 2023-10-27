@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<link rel="stylesheet" href="css/detail.css">
+
 <link rel="stylesheet" href="css/detail1.css">
 <link rel="stylesheet" href="css/detail2.css">
 <link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/detail.css">
 
 <body>
     <div class="page_wrap movie_wrap">
@@ -23,13 +24,12 @@
                     </div>
                     <div class="flex">
                         <ul class="primary">
-                            <li class="user">
-                                <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">
-                                </a>
+                            <li class="user" id = "is_login">
                             </li>
-                            <li class="glyph search_buttons">
-                                <form action="search">
-                                    <a class="search" href="/search">
+                            <li class="search-container">
+                                <form id="searchFrom">
+                                    <input type="text" placeholder="Search" id="search_input" />
+                                    <a class="search" id = "searchClick">
                                         <span class="glyphicons_v2 search blue"></span>
                                     </a>
                                 </form>
@@ -43,69 +43,6 @@
 
         <main id="main" class="smaller  subtle show_search_false">
             <section class="inner_content movie_content backdrop poster">
-                <style>
-                    html {
-                        --primaryColor: rgba(220.5, 220.5, 220.5, 1);
-                        --primaryColorContrast: #000000;
-                    }
-
-                    div.header {
-                        background: linear-gradient(to bottom right, rgba(220.5, 220.5, 220.5, 1), rgba(220.5, 220.5, 220.5, 0.84));
-                    }
-
-                    div.column_wrapper div.settings_panel h3 {
-                        color: var(--primaryColorContrast);
-                    }
-
-                    div.settings_panel h3.background_color {
-                        background-color: var(--primaryColor);
-                    }
-
-                    section.inner_content a,
-                    section.media_panel div.menu ul li.active a {
-                        color: #000;
-                    }
-
-                    section.inner_content a:hover {
-                        color: rgba(0, 0, 0, 0.5);
-                    }
-
-                    section.media_panel div.menu ul li.active {
-                        border-bottom-color: #000000;
-                    }
-
-
-                    p.new_button.rounded,
-                    section.content_score div.content_score div,
-                    div.leaderboard div.histogram div.bar span {
-                        border-color: var(--primaryColor);
-                        background-color: var(--primaryColor);
-                        color: var(--primaryColorContrast);
-                    }
-
-                    p.new_button.rounded a,
-                    section.content_score div.content_score div p {
-                        color: var(--primaryColorContrast);
-                    }
-
-                    div.header.large.first {
-                        border-bottom: 1px solid var(--primaryColor);
-                        background-position: left calc((50vw - 170px) - 340px) top;
-                        background-size: cover;
-                        background-repeat: no-repeat;
-                    }
-
-                    @media only screen and (min-width: 1900px) {
-                        div.header.large.first {
-                            background-size: auto;
-                        }
-                    }
-
-                    section.inner_content div.custom_bg {
-                        background-image: linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 50%, rgba(220.5, 220.5, 220.5, 0.84) 100%);
-                    }
-                </style>
-
                 <div id="shortcut_bar_scroller" class="scroller_wrap shortcut_bar_wrapper is_fading">
                     <ul id="new_shortcut_bar"
                         class="dropdown_menu scroller k-widget k-reset k-header k-menu k-menu-horizontal"

@@ -7,6 +7,7 @@ searchFrom.addEventListener("submit", search);
 var movieClick = function (event) {
   alert(event);
 };
+
 const options = {
   method: "GET",
   headers: {
@@ -43,10 +44,11 @@ function loadData() {
             movieDate,
           });
         });
-        movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
       })
       .catch((err) => console.error(err))
       .finally(() => {
+
+        movieList.sort((a, b) => (a.movieAverage < b.movieAverage ? 1 : -1));
         search();
       });
   }
@@ -86,7 +88,7 @@ function search(event) {
   }
   const searchWord = searchInput.value.toUpperCase();
   cardList.innerHTML = "";
-
+  console.log(movieList)
   movieList
     .filter((element) => {
       if (element.movie.toUpperCase().includes(searchWord)) {

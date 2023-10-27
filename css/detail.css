@@ -18,3 +18,63 @@ div {
 section.inner_content div.custom_bg {
     background-image: linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 50%, rgba(220.5, 220.5, 220.5, 0.84) 100%);
 }
+html {
+    --primaryColor: rgba(220.5, 220.5, 220.5, 1);
+    --primaryColorContrast: #000000;
+}
+
+div.header {
+    background: linear-gradient(to bottom right, rgba(220.5, 220.5, 220.5, 1), rgba(220.5, 220.5, 220.5, 0.84));
+}
+
+div.column_wrapper div.settings_panel h3 {
+    color: var(--primaryColorContrast);
+}
+
+div.settings_panel h3.background_color {
+    background-color: var(--primaryColor);
+}
+
+section.inner_content a,
+section.media_panel div.menu ul li.active a {
+    color: #000;
+}
+
+section.inner_content a:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+section.media_panel div.menu ul li.active {
+    border-bottom-color: #000000;
+}
+
+
+p.new_button.rounded,
+section.content_score div.content_score div,
+div.leaderboard div.histogram div.bar span {
+    border-color: var(--primaryColor);
+    background-color: var(--primaryColor);
+    color: var(--primaryColorContrast);
+}
+
+p.new_button.rounded a,
+section.content_score div.content_score div p {
+    color: var(--primaryColorContrast);
+}
+
+div.header.large.first {
+    border-bottom: 1px solid var(--primaryColor);
+    background-position: left calc((50vw - 170px) - 340px) top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (min-width: 1900px) {
+    div.header.large.first {
+        background-size: auto;
+    }
+}
+
+section.inner_content div.custom_bg {
+    background-image: linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 50%, rgba(220.5, 220.5, 220.5, 0.84) 100%);
+}

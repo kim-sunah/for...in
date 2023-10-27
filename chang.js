@@ -32,7 +32,7 @@ let docs = await getDocs(collection(db, "users"));
 
 docs.forEach((doc) => {
     let row = doc.data();
-    console.log(row);
+    // console.log(row);
 });
 
 const click_log_out_btn = document.getElementById("log_out");//index페이지의 "로그아웃" 버튼 

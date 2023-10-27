@@ -27,6 +27,7 @@ header {
 }
 
 .searchBox {
+  top: 60px;
   grid-area: searchBox;
   padding-top: 1rem;
 }
