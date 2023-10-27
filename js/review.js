@@ -64,28 +64,34 @@ $('#review').on('submit', (enent) => {
 async function addComment() {
     let review = $('textarea').val();
     review = review.replace(/\n/g, '<br>');
-    let name = localStorage.getItem('userName')
+    let password = null;
+    let name = null
     if ($('textarea').val() == "") {
         alert('댓글이 입력되지 않았습니다.')
         return
-    } else if (name == undefined) {
-        name = prompt("성함을 알려주세요~");
-        if (name == "") return;
-        else localStorage.setItem('userName', name);
     }
-    let password = prompt("게시글의 비밀번호를 입력해주세요");
-    if (password) {
-        let doc = {
-            'id': guid(), // UUID 생성
-            'userName': localStorage.getItem('userName'),
-            'review': review,
-            'password': password,
-            'date': dateString,
-            'movieId':url
+
+    if (!JSON.parse(localStorage.getItem('login_user'))) {
+        if (name == undefined) {
+            name = prompt("성함을 알려주세요~");
+            if (name == "") return;
         }
-        alert('저장 완료!');
-        reviewArr.push(doc)
-        localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
-        location.href = `detail.html?id=${url}`;
+        password = prompt("게시글의 비밀번호를 입력해주세요");
+        if (password == "") return;
+    } else {
+        name = JSON.parse(localStorage.getItem('login_user'))["id"];
+        password = JSON.parse(localStorage.getItem('login_user'))["password"];
     }
+    let doc = {
+        'id': guid(), // UUID 생성
+        'userName': name,
+        'review': review,
+        'password': password,
+        'date': dateString,
+        'movieId': url
+    }
+    alert('저장 완료!');
+    reviewArr.push(doc)
+    localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
+    location.href = `detail.html?id=${url}`;
 }

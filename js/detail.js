@@ -30,6 +30,7 @@ for (let i of reviewArr) {
 console.log(movieReviewArr)
 //상세페이지 기본정보
 function detailpage(response) {
+    $("#userName").text(`${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다`)
     $("#title").text(response.title)
     $("#year").text(`(${response.release_date.slice(0, 4)})`)
     $("#release_date").text(`${response.release_date}(${response.production_countries[0].iso_3166_1})`)
@@ -126,13 +127,22 @@ function getCommentList(response) {
         $(document).on('click', '.open', function (e) {
             for (let i of movieReviewArr) {
                 if (i.id === e.currentTarget.id) {
-                    if (i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")) {
-                        alert("성함이 다릅니다")
-                        return;
-                    }
-                    if (i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")) {
-                        alert("비밀번호가 다릅니다")
-                        return;
+                    if (JSON.parse(localStorage.getItem('login_user')) != null) {
+                        if (i.userName == JSON.parse(localStorage.getItem('login_user'))["id"] && i.password == JSON.parse(localStorage.getItem('login_user'))["password"]) {
+                            location.href = `reviewEdit.html?id=${url}&review_id=${e.currentTarget.id}`;
+                        } else {
+                            alert("작성자만 수정&삭제가 가능합니다")
+                            return;
+                        }
+                    } else {
+                        if (i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")) {
+                            alert("성함이 다릅니다")
+                            return;
+                        }
+                        if (i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")) {
+                            alert("비밀번호가 다릅니다")
+                            return;
+                        }
                     }
                 }
             }
