@@ -11,12 +11,13 @@
     .background {
         position: absolute;
         display: grid;
-        grid-template-columns: 500px 200px 500px;
+        grid-template-columns: 700px 500px 100px;
         margin-left: 300px;
         text-align: center;
     }
 
     .game_title {
+       
         background-color: skyblue;
         width: 500px;
         height: 100px;
@@ -24,7 +25,15 @@
         text-align: center;
         margin: auto;
     }
-
+.U_name{
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    width: 100px;
+    margin: auto;
+    text-align: center;
+}
     .score_text {
         text-align: center;
     }
@@ -54,21 +63,29 @@
     <div class="game_title">
         <h1>더 높게 더 낮게</h1>
     </div>
+    <div class="U_name" id="user_name"></div>
     <div class="score_text">
         <span id="b_score"></span>
         <span id="score"> 점수: 0</span>
+        <br>
+        <div>오른쪽 영화가 왼쪽보다 투표수가 더?</div>
+        <br>
     </div>
 
     <div class="background">
-        <span class="left_movie" id="L_movie">좌</span>
+        <span class="left_movie" id="L_movie"></span>
+       
+        <span class="right_movie" id="R_movie"></span>
+        
         <span class="up" onclick="click_up()"></span>
-        <span class="right_movie" id="R_movie">우</span>
+        <span></span>
         <span></span>
         <span class="down" onclick="click_down()"></span>
     </div>
 
     <script>
-        //document.getElementById("L_movie").id
+        //document.getElementById("L_movie").id//만일 오류가 날경우 이 아랫줄을 지우길 바람
+        document.getElementById("user_name").innerHTML=JSON.parse(localStorage.getItem('login_user'))["name"]+"님의";
         document.getElementById("b_score").innerHTML="최고 점수 : "+localStorage.getItem('best_score');
         const options = {
             method: 'GET',
@@ -236,9 +253,9 @@
             }, 600);
                   }
         //정답오답 함수
-        //
+        
         function back_main(){
-            location.href = "log_join.html";
+            location.href = "index.html";
         }
     </script>
 </body>
