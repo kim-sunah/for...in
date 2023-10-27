@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/detail.css">
 <link rel="stylesheet" href="css/detail1.css">
 <link rel="stylesheet" href="css/detail2.css">
-<link rel="stylesheet" href="css/detail3.css">
+<link rel="stylesheet" href="css/header.css">
 
 <body>
     <div class="page_wrap movie_wrap">
@@ -28,46 +28,14 @@
                                 </a>
                             </li>
                             <li class="glyph search_buttons">
-                                <a class="search" href="/search"><span class="glyphicons_v2 search blue"></span></a>
-                                <a class="close hide" href="/search"><span
-                                        class="glyphicons_v2 menu-close invert svg"></span></a>
+                                <form action="search">
+                                    <a class="search" href="/search">
+                                        <span class="glyphicons_v2 search blue"></span>
+                                    </a>
+                                </form>
                             </li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <div class="search_bar hide">
-                <section class="search show_search_false">
-                    <div class="sub_media">
-                        <form id="search_form" action="/search?language=ko" method="get" accept-charset="utf-8">
-                            <input type="hidden" name="language" value="ko">
-                            <label>
-                                <span tabindex="-1" role="presentation"
-                                    class="k-widget k-autocomplete k-autocomplete-clearable k-state-default"
-                                    style=""><input dir="auto" id="search_v4" name="query" type="text" tabindex="1"
-                                        autocorrect="off" autofill="off" autocomplete="off" spellcheck="false"
-                                        placeholder="영화, TV 프로그램, 인물 검색" value="" data-role="autocomplete"
-                                        class="k-input" role="textbox" aria-haspopup="true" aria-disabled="false"
-                                        aria-readonly="false" aria-owns="search_v4_listbox"
-                                        aria-autocomplete="list"><span unselectable="on" class="k-clear-value k-hidden"
-                                        title="clear" role="button" tabindex="-1"><span
-                                            class="k-icon k-i-x"></span></span><span
-                                        class="k-icon k-i-loading k-hidden"></span></span>
-                            </label>
-                            <input type="submit" disabled="">
-                        </form>
-                    </div>
-                </section>
-            </div>
-            <div class="k-list-container k-popup k-group k-reset" id="search_v4-list" data-role="popup"
-                aria-hidden="true" style="display: none; position: absolute;">
-                <div class="k-group-header" style="display:none"></div>
-                <div class="k-list-scroller" unselectable="on">
-                    <ul unselectable="on" class="k-list k-reset" tabindex="-1" aria-hidden="true" id="search_v4_listbox"
-                        aria-live="polite" data-role="staticlist" role="listbox"></ul>
-                </div>
-                <div class="k-nodata" style="display:none">
-                    <div></div>
                 </div>
             </div>
         </header>

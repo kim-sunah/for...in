@@ -35250,7 +35250,6 @@ header ul li.user span.avatar {
 
 header ul li.glyph a {
     height: 100%;
-    display: inline-flex;
     align-items: center
 }
 
