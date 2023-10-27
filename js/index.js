@@ -92,11 +92,11 @@ window.onload = () => {
     $('#is_login').html(
       `
       <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다</a>
-      <button id="log_out">Logout</button>
+      <button id="log_out" onClick="location.href='log_join.html'">Logout</button>
       `
     )
   }else{
-    $('#is_login').html("<button id='log_join'>Login</button>")
+    $('#is_login').html(`<button id='log_join' onClick="location.href='log_join.html'">Login</button>`)
   }
   if (search_word) searchInput.value = search_word
   searchInput.value = search_word != null ? search_word : null;
