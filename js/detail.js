@@ -30,7 +30,9 @@ for (let i of reviewArr) {
 console.log(movieReviewArr)
 //상세페이지 기본정보
 function detailpage(response) {
+    if(localStorage.getItem('login_user')){
     $("#userName").text(`${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다`)
+    }
     $("#title").text(response.title)
     $("#year").text(`(${response.release_date.slice(0, 4)})`)
     $("#release_date").text(`${response.release_date}(${response.production_countries[0].iso_3166_1})`)
