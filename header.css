@@ -5,19 +5,30 @@
 }
 
 header {
-  background-color: #333d51;
+  position: fixed;
+  background-color: #162e5c;
   display: grid;
   grid-template-areas:
-    "logo . . loginName"
-    "logo . . login"
-    ". . . searchBox";
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  padding: 1.5rem;
+    "logo searchBox . login"
+    "logo . . .";
+  grid-template-columns: 0.4fr minmax(550px, auto) 1fr 1fr;
+  grid-template-rows: 1fr 0.2fr;
 }
 
-.search {
+.logo {
+  grid-area: logo;
+  margin: 1rem;
+}
+
+#moovieLogo {
+  width: 130px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.searchBox {
   grid-area: searchBox;
+  padding-top: 1rem;
 }
 
 .search input {
@@ -28,31 +39,71 @@ header {
 }
 
 .search button {
-  margin-left: 1em;
-  min-width: 4em;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
 }
 
-#log_join {
+#search_Logo {
+  width: 1rem;
+  height: 1rem;
+}
+
+.logInBox {
   grid-area: login;
+  display: grid;
+  grid-template-areas:
+    ". . name"
+    ". . logBtn";
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-rows: 1fr 0.5fr;
+}
+
+#log_join,
+#log_out {
+  grid-area: logBtn;
+  margin-left: 1.5rem;
+  width: 5rem;
+  cursor: pointer;
+  background-color: #ffbc00;
+  box-shadow: 0px 0px 0px 0px #ffbc00;
+  border: 0px;
+  border-radius: 2rem;
+  font-family: "Gothic A1", sans-serif;
+}
+
+#log_join:hover,
+#log_out:hover {
+  box-shadow: 0px 0px 0px 5px #d6a00c;
+}
+
+#log_in_user {
+  grid-area: name;
+  background-color: white;
+  margin: 10px;
+  width: 6rem;
+  height: 2rem;
+  padding-top: 7px;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 2rem;
+  font-family: "Gothic A1", sans-serif;
 }
 
 .search select {
-  margin-left: 3rem;
+  margin-left: 2rem;
 }
 
-.장르 {
-  position: absolute;
-  border-radius: 20px;
-  left: 10px;
-  top: 10px;
-  display: flex;
-  flex-direction: row;
+.optionBox {
+  display: inline-flex;
+  margin-left: 1rem;
 }
 
-#filterform {
-  margin-right: 10px;
+#sortForm {
+  margin-right: 0.6rem;
 }
 
-#checkbox {
-  margin-left: 10px;
+#genreFilter {
+  margin-right: 0.7rem;
 }

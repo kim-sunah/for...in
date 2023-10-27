@@ -10,6 +10,7 @@ body {
 }
 
 .cardList {
+  padding-top: 100px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
@@ -40,6 +41,7 @@ body {
   padding: 1rem;
   border-radius: 1rem;
   background-color: white;
+  line-height: 1.5rem;
 }
 
 .movieImg {

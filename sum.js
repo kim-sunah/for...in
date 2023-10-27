@@ -2,6 +2,10 @@ const cardList = document.getElementById("cardList");
 const searchFrom = document.getElementById("search");
 const searchInput = searchFrom.querySelector("input");
 const movieCard = document.querySelector(".movieCard");
+let moovieLogo = document.getElementById("moovieLogo");
+moovieLogo.addEventListener("click", function () {
+  location.href = "index.html";
+});
 searchFrom.addEventListener("submit", search);
 
 //우섭님꺼
@@ -36,7 +40,7 @@ genreKeys.forEach((genre) => {
 });
 
 var movieClick = function (event) {
-  alert(event);
+  location.href = `detail.html?id=${event}`;
 };
 const options = {
   method: "GET",
