@@ -267,7 +267,6 @@ input[type=submit] {
 .colleft,.colmask,.colmid,.colright {
     float: left;
     width: 100%;
-    position: relative
 }
 
 .col1,.col2,.col3 {

@@ -1,3 +1,25 @@
+// Firebase SDK 라이브러리 가져오기
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+// Firebase 구성 정보 설정
+const firebaseConfig = {
+    apiKey: "AIzaSyCauRZ02WOgnWSXDX7pEVv9xJ-g25bOyWE",
+    authDomain: "sparta5-65934.firebaseapp.com",
+    databaseURL: "https://sparta5-65934-default-rtdb.firebaseio.com",
+    projectId: "sparta5-65934",
+    storageBucket: "sparta5-65934.appspot.com",
+    messagingSenderId: "381298859705",
+    appId: "1:381298859705:web:b65a54d74b3b7f765b8568",
+    measurementId: "G-PE2KPSE1FQ"
+};
+// Firebase 인스턴스 초기화
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const googleAuthProvider = new GoogleAuthProvider();
+
 const cardList = document.getElementById("cardList");
 const searchFrom = document.getElementById("searchFrom");
 const searchInput = document.getElementById("search_input");
@@ -34,10 +56,6 @@ genreKeys.forEach((genre) => {
   option.textContent = genre;
   genreFilter.appendChild(option);
 });
-
-var movieClick = function (event) {
-  location.href = `detail.html?id=${event}`;
-};
 
 
 const options = {
@@ -88,16 +106,37 @@ function loadData() {
 }
 
 window.onload = () => {
-  if (localStorage.getItem('login_user')) {
-    $('#is_login').html(
-      `
-      <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${JSON.parse(localStorage.getItem('login_user'))["name"]}님 반갑습니다</a>
-      <button id="log_out" onClick="location.href='log_join.html'">Logout</button>
-      `
-    )
-  }else{
-    $('#is_login').html(`<button id='log_join' onClick="location.href='log_join.html'">Login</button>`)
-  }
+  
+//로그인 상태 확인
+const userSession = sessionStorage.getItem('userData');
+const user = JSON.parse(userSession);
+    if (user) {
+        console.log("log in")
+        // 사용자가 로그인한 경우
+        $('#is_login').html(
+            `
+        <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${user.displayName}님 반갑습니다</a>
+        <button id="log_out">Logout</button>
+        `
+        )
+        $("#log_out").click(function () {
+            signOut(auth)
+                .then(() => {
+                    // 로그아웃 성공 시 처리
+                    sessionStorage.removeItem('userData');
+                    alert("로그아웃 성공!");
+                    location.reload();
+                })
+                .catch((error) => {
+                    // 로그아웃 실패 시 처리
+                    alert("로그아웃 실패: " + error);
+                });
+        });
+    } else {
+        // 사용자가 로그인하지 않은 경우
+        $('#is_login').html(`<button id='log_join.html'onClick="location.href='log_join.html'">Login</button>`);
+    }
+
   if (search_word) searchInput.value = search_word
   searchInput.value = search_word != null ? search_word : null;
   loadData();
@@ -174,7 +213,7 @@ function search(event) {
     }
   }).map((element) => {
     cardList.innerHTML += `
-            <div class = "movieCard" id = "${element.movieId}" onclick = "movieClick(${element.movieId})" >
+            <div class = "movieCard" id = "${element.movieId}" onclick ="location.href='detail.html?id=${element.movieId}';" >
                 <img class = "movieImg" src = "https://image.tmdb.org/t/p/w500/${element.movieImage}"/>
                 <div class = "cardBox">
                 <h3 class = "movieTitle">${element.movie}</h3>

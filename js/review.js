@@ -1,3 +1,5 @@
+const userSession = sessionStorage.getItem('userData');
+const user = JSON.parse(userSession);
 const _REVIEW = "review"
 let reviewArr = [];
 if (JSON.parse(localStorage.getItem(_REVIEW))) {
@@ -45,7 +47,7 @@ function templet(response) {
         </a>
     `)
     $('#text').append(`
-        <h2 class="space">A review by 유저이름</h2>
+        <h2 class="space">A review by ${user.displayName}</h2>
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
         <div id="editor-textarea" class="column">
             <div class="editor">
@@ -62,25 +64,26 @@ $('#review').on('submit', (enent) => {
 })
 
 async function addComment() {
+
     let review = $('textarea').val();
     review = review.replace(/\n/g, '<br>');
     let password = null;
     let name = null
+    let isLogin = false
     if ($('textarea').val() == "") {
         alert('댓글이 입력되지 않았습니다.')
         return
     }
-
-    if (!JSON.parse(localStorage.getItem('login_user'))) {
-        if (name == undefined) {
-            name = prompt("성함을 알려주세요~");
-            if (name == "") return;
-        }
+    if (userSession ==null) {
+        name = prompt("성함을 알려주세요~");
+        console.log(name)
+        if (name == null) return;
         password = prompt("게시글의 비밀번호를 입력해주세요");
-        if (password == "") return;
+        if (password == null) return;
     } else {
-        name = JSON.parse(localStorage.getItem('login_user'))["id"];
-        password = JSON.parse(localStorage.getItem('login_user'))["password"];
+        name = user.displayName;
+        password = user.uid;
+        isLogin = true
     }
     let doc = {
         'id': guid(), // UUID 생성
@@ -88,7 +91,8 @@ async function addComment() {
         'review': review,
         'password': password,
         'date': dateString,
-        'movieId': url
+        'movieId': url,
+        "isLogin": isLogin
     }
     alert('저장 완료!');
     reviewArr.push(doc)

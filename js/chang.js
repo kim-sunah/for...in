@@ -1,7 +1,7 @@
 // Firebase SDK 라이브러리 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
 // Firebase 구성 정보 설정
 const firebaseConfig = {
@@ -47,17 +47,28 @@ function sign_in() {
         passSignin: $("#pass-signin").val(),
     };
     signInWithEmailAndPassword(auth, signIn.idSignin, signIn.passSignin)
-    .then((userCredential) => {
-                // 로그인 성공 시 처리
-                const user = userCredential.user;
-                alert("로그인 성공! 사용자 ID: " + user.uid);
-            })
-            .catch((error) => {
-                // 로그인 실패 시 처리
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert("로그인 실패: " + errorMessage);
-            });
+        .then((userCredential) => {
+            // 로그인 성공 시 처리
+            const user = userCredential.user;
+            alert("로그인 성공! 사용자 ID: " + user.uid);
+
+            const userData = {
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+            };
+
+            const userDataString = JSON.stringify(userData);
+            sessionStorage.setItem('userData', userDataString);
+
+            console.log('사용자 정보:', userData);
+            location.href = "index.html";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("로그인 실패: " + errorMessage);
+        });
 }
 
 function sign_up() {
@@ -68,42 +79,48 @@ function sign_up() {
         repeatPass: $('#repeat-pass').val(),
     };
 
+
     if (signUp.userSignup === '' || signUp.idSignup === '' || signUp.passSignup === '' || signUp.repeatPass === '') {
         alert("모든 항목을 입력해주세요.");
         return;
     }
-    //이름 유효성 검사 
-    name_check(signUp.userSignup)
-    //아이디 유효성 검사
-    id_check(signUp.idSignup)
-    //비밀번호 유효성검사
-    password_check(signUp.passSignup, signUp.repeatPass)
-
-    createUserWithEmailAndPassword(auth,signUp.idSignup , signUp.passSignup)
-    .then((userCredential) => {
-      // 회원가입 성공 시 처리
-      const user = userCredential.user;
-      console.log("회원가입 성공:", user);
-    })
-    .catch((error) => {
-      // 회원가입 실패 시 처리
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("회원가입 실패:", errorMessage);
-    });
+    if (name_check(signUp.userSignup) + id_check(signUp.idSignup) + password_check(signUp.passSignup, signUp.repeatPass) == 3) {
+        createUserWithEmailAndPassword(auth, signUp.idSignup, signUp.passSignup)
+            .then((userCredential) => {
+                console.log(userCredential)
+                // 회원가입 성공 시 처리
+                const user = userCredential.user;
+                console.log(user);
+                // 사용자 정보 업데이트
+                return updateProfile(user, {
+                    displayName: signUp.userSignup
+                });
+            })
+            .then(() => {
+                alert("회원가입 성공! 로그인해주세요")
+                document.getElementById("tab-1").checked = true;
+                document.getElementById("tab-2").checked = false;
+            })
+            .catch((error) => {
+                // 회원가입 실패 시 처리
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("회원가입 실패:", errorMessage);
+            });
+    }
 }
 
 function name_check(name) {
     let check = false;
     var all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
-
-    if ((name < 7 && name > 1) && !(all_S_character.test(name))) {
+    console.log(name.length)
+    if ((name.length < 7 && name.length > 1) && !(all_S_character.test(name))) {
         //길이 제한 + !특수문자
         check = true;
     }
     else {
-        $("#id-signup").val('');
-        $('#id-signup').attr("placeholder", "이름은 2~6자 이하이고 특수문자를 사용할수 없습니다.")
+        $("#user-signup").val('');
+        $('#user-signup').attr("placeholder", "이름은 2~6자 이하이고 특수문자를 사용할수 없습니다.")
         return false;
     }
     return check;

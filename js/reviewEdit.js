@@ -1,3 +1,5 @@
+const userSession = sessionStorage.getItem('userData');
+const user = JSON.parse(userSession);
 const _REVIEW = "review"
 let reviewArr = [];
 if (JSON.parse(localStorage.getItem(_REVIEW))) {
@@ -36,7 +38,7 @@ function templet(response) {
         </a>
     `)
     $('#text').append(`
-        <h2 class="space">A review by 유저이름</h2>
+    <h2 class="space">A review by ${user.displayName}</h2>
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
         <div id="editor-textarea" class="column">
             <div class="editor">
@@ -55,7 +57,7 @@ $('#edit').on('click', async (e) => {
     for (let i of reviewArr) {
         if (i.id === review_id) {
             i.review = review_text;
-            break; 
+            break;
         }
     }
     localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
@@ -69,7 +71,7 @@ $('.delete').on('click', async (e) => {
         for (let i = 0; i < reviewArr.length; i++) {
             if (reviewArr[i].id === review_id) {
                 reviewArr.splice(i, 1);
-                break; 
+                break;
             }
         }
         localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
