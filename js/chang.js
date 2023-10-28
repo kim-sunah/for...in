@@ -19,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
+
 //Email 로그인
 function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -56,12 +57,12 @@ function sign_in() {
                 uid: user.uid,
                 displayName: user.displayName,
                 email: user.email,
+                gameStore:0,
             };
 
             const userDataString = JSON.stringify(userData);
             sessionStorage.setItem('userData', userDataString);
-
-            console.log('사용자 정보:', userData);
+            
             location.href = "index.html";
         })
         .catch((error) => {
@@ -92,8 +93,11 @@ function sign_up() {
                 const user = userCredential.user;
                 console.log(user);
                 // 사용자 정보 업데이트
+                
                 return updateProfile(user, {
-                    displayName: signUp.userSignup
+                    displayName: signUp.userSignup,
+                    gameStore: "0",
+                    photoURL: "https://example.com/jane-q-user/profile.jpg"
                 });
             })
             .then(() => {

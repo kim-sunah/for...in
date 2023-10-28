@@ -16,8 +16,14 @@ body {
   justify-content: center;
 }
 .optionBox{
-  padding-top: 100px;
+  /* padding-top: 100px; */
   text-align: right;
+  padding-right: 5%;
+}
+.go-game{
+  padding-top: 80px;
+  text-align: right;
+  margin-bottom: 10px;
   padding-right: 5%;
 }
 #genreFilter{

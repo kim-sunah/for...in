@@ -20,6 +20,9 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
+//로그인 상태 확인
+const userSession = sessionStorage.getItem('userData');
+const user = JSON.parse(userSession);
 const _REVIEW = "review"
 let reviewArr = [];
 let movieReviewArr = [];
@@ -49,9 +52,7 @@ for (let i of reviewArr) {
     }
 }
 
-//로그인 상태 확인
-const userSession = sessionStorage.getItem('userData');
-const user = JSON.parse(userSession);
+
 if (user) {
     console.log("log in")
     // 사용자가 로그인한 경우
