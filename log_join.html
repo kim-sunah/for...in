@@ -1,117 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>로그인 페이지</title>
     <link rel="stylesheet" href="css/log_in_page.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/logIn.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="p_log_join_page">
-        <div class="log_join_page" id="logjoin_page">
-
-        </div>
+      <div class="log_join_page" id="logjoin_page"></div>
     </div>
     <header class="normal smaller no_animation smaller subtle nav-down">
-        <div class="content">
-            <div class="sub_media">
-                <div class="nav_wrapper">
-                    <a class="logo" href="index.html">
-                        <img src="image/moovieLogo.png" alt="The Movie Database (TMDB)">
-                    </a>
-                </div>
-                <div class="flex">
-                    <ul class="primary">
-                        <li class="user" id="is_login">
-                            <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip"></a>
-                        </li>
-                        <li class="search-container">
-                            <form id="searchFrom">
-                                <input type="text" placeholder="Search" id="search_input" />
-                                <a class="search" id="searchClick">
-                                    <span class="glyphicons_v2 search blue"></span>
-                                </a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <div class="content">
+        <div class="sub_media">
+          <div class="nav_wrapper">
+            <a class="logo" href="index.html">
+              <img src="image/moovieLogo.png" alt="The Movie Database (TMDB)" />
+            </a>
+          </div>
+          <div class="flex">
+            <ul class="primary">
+              <li class="user" id="is_login">
+                <a
+                  class="no_click tooltip_hover"
+                  id="userName"
+                  title="프로필과 설정"
+                  data-role="tooltip"
+                ></a>
+              </li>
+              <li class="search-container">
+                <form id="searchFrom">
+                  <input type="text" placeholder="Search" id="search_input" />
+                  <a class="search" id="searchClick">
+                    <span class="glyphicons_v2 search blue"></span>
+                  </a>
+                </form>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </header>
     <div class="login-wrap">
-        <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
-            <label for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up">
-            <label for="tab-2" class="tab">Sign Up</label>
-            <div class="login-form">
-                <form id="sign-in-form">
-                    <div class="sign-in-htm">
-                        <div class="group">
-                            <label for="id" class="label">Id</label>
-                            <input id="id-signin" type="text" class="input">
-                        </div>
-                        <div class="group">
-                            <label for="pass" class="label">Password</label>
-                            <input id="pass-signin" type="password" class="input" data-type="password">
-                        </div>
-                        <div class="group">
-                            <input id="check-signin" type="checkbox" class="check" checked>
-                            <label for="check-signin"><span class="icon"></span> Keep me Signed in</label>
-                        </div>
-                        <div class="group">
-                            <input type="submit" class="button" value="Sign In">
-                        </div>
-                        <div class="hr"></div>
-                    </div>
-                </form>
-                <form id="sign-up-form">
-                    <div class="sign-up-htm">
-                        <div class="group">
-                            <label for="user" class="label">Username</label>
-                            <input id="user-signup" type="text" class="input">
-                        </div>
-                        <div class="group">
-                            <label for="ID" class="label">E-mail</label>
-                            <input id="id-signup" type="text" class="input">
-                        </div>
-                        <div class="group">
-                            <label for="pass" class="label">Password</label>
-                            <input id="pass-signup" type="password" class="input" data-type="password">
-                        </div>
-                        <div class="group">
-                            <label for="repeat-pass" class="label">Repeat Password</label>
-                            <input id="repeat-pass" type="password" class="input" data-type="password">
-                        </div>
-                        <div class="group">
-                            <input type="submit" class="button" value="Sign Up">
-                        </div>
-                        <div class="hr"></div>
-                        <div class="foot-lnk">
-                            <label for="tab-1">Already Member?</label>
-                        </div>
-                    </div>
-                </form>
+      <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked />
+        <label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up" />
+        <label for="tab-2" class="tab">Sign Up</label>
+        <div class="login-form">
+          <form id="sign-in-form">
+            <div class="sign-in-htm">
+              <div class="group">
+                <label for="id" class="label">E-mail</label>
+                <input id="id-signin" type="text" class="input" />
+              </div>
+              <div class="group">
+                <label for="pass" class="label">Password</label>
+                <input
+                  id="pass-signin"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                />
+              </div>
+              <div class="group">
+                <input
+                  id="check-signin"
+                  type="checkbox"
+                  class="check"
+                  checked
+                />
+                <label for="check-signin"
+                  ><span class="icon"></span> Keep me Signed in</label
+                >
+              </div>
+              <div class="group">
+                <input type="submit" class="button" value="Sign In" />
+              </div>
+              <div class="hr"></div>
             </div>
+          </form>
+          <form id="sign-up-form">
+            <div class="sign-up-htm">
+              <div class="group">
+                <label for="user" class="label">Username</label>
+                <input id="user-signup" type="text" class="input" />
+              </div>
+              <div class="group">
+                <label for="ID" class="label">E-mail</label>
+                <input id="id-signup" type="text" class="input" />
+              </div>
+              <div class="group">
+                <label for="pass" class="label">Password</label>
+                <input
+                  id="pass-signup"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                />
+              </div>
+              <div class="group">
+                <label for="repeat-pass" class="label">Repeat Password</label>
+                <input
+                  id="repeat-pass"
+                  type="password"
+                  class="input"
+                  data-type="password"
+                />
+              </div>
+              <div class="group">
+                <input type="submit" class="button" value="Sign Up" />
+              </div>
+              <div class="hr"></div>
+              <div class="foot-lnk">
+                <label for="tab-1">Already Member?</label>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-<!-- Firebase SDK 정적 모듈 로드 -->
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js"></script>
-<!-- 여기에 다른 Firebase 모듈도 추가로 로드할 수 있습니다 -->
+    <!-- Firebase SDK 정적 모듈 로드 -->
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/10.5.2/firebase-analytics.js"
+    ></script>
+    <!-- 여기에 다른 Firebase 모듈도 추가로 로드할 수 있습니다 -->
 
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-        <script type="module" src="js/chang.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="js/chang.js"></script>
     <!-- <script type="module" src="js/log_in_page_ani.js"></script> -->
-</body>
-
+  </body>
 </html>
