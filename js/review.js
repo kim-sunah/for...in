@@ -46,7 +46,7 @@ function templet(response) {
             <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="쏘우 10">
         </a>
     `)
-    if(userSession){
+    if (userSession) {
         $('#text').append(`
         <h2 class="space">A review by ${user.displayName}</h2>
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
@@ -56,7 +56,7 @@ function templet(response) {
             </div>
         </div>
     `)
-    }else{
+    } else {
         $('#text').append(`
         <h2 class="space">A review by you</h2>
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
@@ -67,17 +67,24 @@ function templet(response) {
         </div>
     `)
     }
-    $('.cancle').attr('href', `detail.html?id=${url}`)
+    const cancelButton = document.querySelector('.cancle');
+    const url = new URL(document.location.href).searchParams.get('id');
+    cancelButton.href = `detail.html?id=${url}`;
+
 }
 
-$('#review').on('submit', (enent) => {
-    enent.preventDefault();
-    addComment()
-})
+const reviewForm = document.getElementById('review');
+
+reviewForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    addComment();
+});
+
 
 async function addComment() {
 
-    let review = $('textarea').val();
+    let textarea = document.querySelector('textarea');
+    let review = textarea.value;
     review = review.replace(/\n/g, '<br>');
     let password = null;
     let name = null
@@ -86,7 +93,7 @@ async function addComment() {
         alert('댓글이 입력되지 않았습니다.')
         return
     }
-    if (userSession ==null) {
+    if (userSession == null) {
         name = prompt("성함을 알려주세요~");
         console.log(name)
         if (name == null) return;
