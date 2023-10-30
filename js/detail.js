@@ -192,7 +192,7 @@ function getCommentList(response) {
         var tbody = document.createElement('tbody');
         tbody.id = 'review_list';
         movieReviewArr.forEach(function (doc) {
-            
+
             var tr = document.createElement('tr');
             tr.id = doc.id;
             tr.className = 'open';
@@ -210,7 +210,7 @@ function getCommentList(response) {
             div3.className = 'link_wrapper';
 
             var a1 = document.createElement('a');
-            a1.textContent = doc.review;
+            a1.innerHTML = doc.review.replace(/<br>/, '<p>');
 
             div3.appendChild(a1);
             div2.appendChild(div3);
@@ -255,35 +255,35 @@ function getCommentList(response) {
         openElements.forEach(element => {
             element.addEventListener('click', function (e) {
                 console.log('click')
-            for (let i of movieReviewArr) {
-                if (i.id === e.currentTarget.id) {
-                    
-                    if (i.isLogin && user) {
-                        if (user.displayName == i.userName && user.uid == i.password) {
-                            console.log(263);
-                            location.href = `reviewEdit.html?id=${url}&review_id=${i.id}`;
-                        }
-                    } else if (i.isLogin && !user) {
-                        alert("로그인한 사용자가 작성한 게시물입니다");
-                        return;
-                    } else {
-                        if (i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")) {
-                            alert("성함이 다릅니다");
-                            return;
-                        }
-                        if (i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")) {
-                            alert("비밀번호가 다릅니다");
+                for (let i of movieReviewArr) {
+                    if (i.id === e.currentTarget.id) {
+
+                        if (i.isLogin && user) {
+                            if (user.displayName == i.userName && user.uid == i.password) {
+                                console.log(263);
+                                location.href = `reviewEdit.html?id=${url}&review_id=${i.id}`;
+                            }
+                        } else if (i.isLogin && !user) {
+                            alert("로그인한 사용자가 작성한 게시물입니다");
                             return;
                         } else {
-                            console.log(278);
-                            location.href = `reviewEdit.html?id=${url}&review_id=${i.id}`;
-                        }
+                            if (i.userName != prompt("게시물 작성 시 입력한 성함을 입력해주세요")) {
+                                alert("성함이 다릅니다");
+                                return;
+                            }
+                            if (i.password != prompt("게시물 작성 시 입력한 비밀번호를 입력해주세요")) {
+                                alert("비밀번호가 다릅니다");
+                                return;
+                            } else {
+                                console.log(278);
+                                location.href = `reviewEdit.html?id=${url}&review_id=${i.id}`;
+                            }
 
+                        }
                     }
                 }
-            }
-        });
-    })
+            });
+        })
 
     }
 }
