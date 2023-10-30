@@ -75,6 +75,7 @@ function loadData() {
       .then((response) => response.json())
       .then((response) => {
         response.results.forEach((element) => {
+          console.log(element)
           const movie = element.original_title;
           const movieImage = element.poster_path;
           const movieOverview = element.overview;
@@ -109,54 +110,54 @@ window.onload = function () {
   var userSession = sessionStorage.getItem('userData');
   var user = JSON.parse(userSession);
   if (user) {
-      console.log("log in");
-      // 사용자가 로그인한 경우
-      var goGameLink = document.createElement('a');
-      goGameLink.href = "chang_game.html";
-      goGameLink.textContent = "게임하러가기";
-      document.getElementById('go-game').appendChild(goGameLink);
+    console.log("log in");
+    // 사용자가 로그인한 경우
+    var goGameLink = document.createElement('a');
+    goGameLink.href = "chang_game.html";
+    goGameLink.textContent = "게임하러가기";
+    document.getElementById('go-game').appendChild(goGameLink);
 
-      var isLoginDiv = document.getElementById('is_login');
-      var userNameLink = document.createElement('a');
-      userNameLink.className = "no_click tooltip_hover";
-      userNameLink.id = "userName";
-      userNameLink.title = "프로필과 설정";
-      userNameLink.setAttribute('data-role', 'tooltip');
-      userNameLink.textContent = user.displayName + "님 반갑습니다";
-      isLoginDiv.appendChild(userNameLink);
+    var isLoginDiv = document.getElementById('is_login');
+    var userNameLink = document.createElement('a');
+    userNameLink.className = "no_click tooltip_hover";
+    userNameLink.id = "userName";
+    userNameLink.title = "프로필과 설정";
+    userNameLink.setAttribute('data-role', 'tooltip');
+    userNameLink.textContent = user.displayName + "님 반갑습니다";
+    isLoginDiv.appendChild(userNameLink);
 
-      var logoutButton = document.createElement('button');
-      logoutButton.id = "log_out";
-      logoutButton.textContent = "Logout";
-      isLoginDiv.appendChild(logoutButton);
+    var logoutButton = document.createElement('button');
+    logoutButton.id = "log_out";
+    logoutButton.textContent = "Logout";
+    isLoginDiv.appendChild(logoutButton);
 
-      logoutButton.addEventListener('click', function () {
-          signOut(auth)
-              .then(function () {
-                  // 로그아웃 성공 시 처리
-                  sessionStorage.removeItem('userData');
-                  alert("로그아웃 성공!");
-                  location.reload();
-              })
-              .catch(function (error) {
-                  // 로그아웃 실패 시 처리
-                  alert("로그아웃 실패: " + error);
-              });
-      });
+    logoutButton.addEventListener('click', function () {
+      signOut(auth)
+        .then(function () {
+          // 로그아웃 성공 시 처리
+          sessionStorage.removeItem('userData');
+          alert("로그아웃 성공!");
+          location.reload();
+        })
+        .catch(function (error) {
+          // 로그아웃 실패 시 처리
+          alert("로그아웃 실패: " + error);
+        });
+    });
   } else {
-      // 사용자가 로그인하지 않은 경우
-      var loginButton = document.createElement('button');
-      loginButton.id = 'log_join.html';
-      loginButton.textContent = "Login";
-      loginButton.onclick = function () {
-          location.href = 'log_join.html';
-      };
-      document.getElementById('is_login').appendChild(loginButton);
+    // 사용자가 로그인하지 않은 경우
+    var loginButton = document.createElement('button');
+    loginButton.id = 'log_join.html';
+    loginButton.textContent = "Login";
+    loginButton.onclick = function () {
+      location.href = 'log_join.html';
+    };
+    document.getElementById('is_login').appendChild(loginButton);
   }
 
   var searchInput = document.getElementById('search_input');
   if (search_word) {
-      searchInput.value = search_word;
+    searchInput.value = search_word;
   }
 
   searchInput.value = search_word != null ? search_word : null;

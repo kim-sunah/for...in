@@ -38,40 +38,29 @@ let minutes = ('0' + today.getMinutes()).slice(-2);
 let seconds = ('0' + today.getSeconds()).slice(-2);
 
 let dateString = year + '-' + month + '-' + day + " " + hours + ':' + minutes + ':' + seconds;;
-
 function templet(response) {
-    console.log(response)
-    $('.col1').append(`
-        <a href="detail.html?id=${response.id}">
-            <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="쏘우 10">
-        </a>
-    `)
-    if (userSession) {
-        $('#text').append(`
-        <h2 class="space">A review by ${user.displayName}</h2>
-        <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
-        <div id="editor-textarea" class="column">
-            <div class="editor">
-                <textarea placeholder="You can start writing your review here."></textarea>
-            </div>
-        </div>
-    `)
-    } else {
-        $('#text').append(`
-        <h2 class="space">A review by you</h2>
-        <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
-        <div id="editor-textarea" class="column">
-            <div class="editor">
-                <textarea placeholder="You can start writing your review here."></textarea>
-            </div>
-        </div>
-    `)
-    }
-    const cancelButton = document.querySelector('.cancle');
-    const url = new URL(document.location.href).searchParams.get('id');
-    cancelButton.href = `detail.html?id=${url}`;
+    console.log(response);
+    var col1 = document.querySelector('.col1');
+    col1.innerHTML = '<a href="detail.html?id=' + response.id + '">' +
+        '<img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face' + response.poster_path + '" ' +
+        'srcset="https://www.themoviedb.org/t/p/w220_and_h330_face' + response.poster_path + ' 1x, ' +
+        'https://www.themoviedb.org/t/p/w440_and_h660_face' + response.poster_path + ' 2x" alt="쏘우 10">' +
+        '</a>';
 
+    var text = document.getElementById('text');
+    text.innerHTML = '<h2 class="space">A review by ' + (userSession ? user.displayName : 'you') + '</h2>' +
+        '<h3>Title: <span>' + response.title + ' (' + response.release_date.slice(0, 4) + ')</span></h3>' +
+        '<div id="editor-textarea" class="column">' +
+        '<div class="editor">' +
+        '<textarea placeholder="You can start writing your review here."></textarea>' +
+        '</div>' +
+        '</div>';
+
+    var cancelButton = document.querySelector('.cancle');
+    var url = new URL(document.location.href).searchParams.get('id');
+    cancelButton.href = 'detail.html?id=' + url;
 }
+
 
 const reviewForm = document.getElementById('review');
 
