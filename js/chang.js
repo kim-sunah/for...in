@@ -107,26 +107,25 @@ function sign_up() {
             })
             .catch((error) => {
                 // 회원가입 실패 시 처리
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.error("회원가입 실패:", errorMessage);
+                alert("이미 가입된 회원입니다")
+                location.reload();
             });
     }
 }
 
 function name_check(name) {
-    let check = false;
+    let check = true;
     let all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
     console.log(name.length)
-    if ((name.length < 7 && name.length > 1) && !(all_S_character.test(name))) {
+    if ((name.length > 7 && name.length < 1) && all_S_character.test(name)) {
         //길이 제한 + !특수문자
-        check = true;
-    }
-    else {
         $("#user-signup").val('');
         $('#user-signup').attr("placeholder", "이름은 2~6자 이하이고 특수문자를 사용할수 없습니다.")
-        return false;
+        check= false
     }
+    console.log(check)
     return check;
 }
 
@@ -134,27 +133,32 @@ function id_check(id) {//id 유효성 검사
     let check = true;
     let valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
 
-    if(valid_txt.test(useremail.value)==false){ 
+    if(valid_txt.test(id)==false){ 
 		  
         $("#id-signup").val('');
         $('#id-signup').attr("placeholder", "올바른 email을 입력해주세요")
         
-        return false;
+        check=  false;
     }
+    console.log(check)
     return check;
 }
 function password_check(password, repeatPass) {//password 유효성 검사
     let all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
-    if (password.length < 31 && password.length > 6 && !(all_korean.test(password))) {
-        return true;
+    let check = true
+    if(password!==repeatPass){
+        $('#repeat-pass').val('');
+        $('#repeat-pass').attr("placeholder", "비밀번호가 다릅니다")
+        check = false
     }
-    else {
+    if(password.length > 31 && password.length < 6 && !(all_korean.test(password))){
         $("#pass-signup").val('');
         $('#repeat-pass').val('');
         $('#pass-signup').attr("placeholder", "비밀번호는 7~30자 이하에 한글을 사용할 수 없습니다")
         alert("비밀번호를 확인해주세요")
-        return false;
+        check = false
     }
+    return check
 }
 
 $('#search_input').on("keydown", function (event) {
