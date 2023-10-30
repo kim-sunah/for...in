@@ -131,31 +131,16 @@ function name_check(name) {
 }
 
 function id_check(id) {//id 유효성 검사
-    let check = false;
-    var all_number = /[0-9]/; //숫자
-    var all_english = /[a-zA-Z]/; //영어
-    var all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
+    let check = true;
+    var valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
 
-    if ((4 < id.length && id.length < 31) && !(all_korean.test(id) && (all_english.test(id) && all_number.test(id)))) {
-        //길이제한 + !(한글)+ (영어나 숫자) 전부 만족
-        console.log(id.length);
-        check = true;
-    }
-    else {
+    if(valid_txt.test(useremail.value)==false){ 
+		  
         $("#id-signup").val('');
-        $('#id-signup').attr("placeholder", "id는 5자이상30자 이하이고 한글을 사용할수 없습니다")
+        $('#id-signup').attr("placeholder", "올바른 email을 입력해주세요")
+        
         return false;
     }
-    //사용할수 없는 id인 경우 아래는 실행하지 않음
-    // docs.forEach((doc) => {
-    //     let row = doc.data();
-    //     if (id == row["user_d"]["id"]) {
-    //         $("#id-signup").val('');
-    //         $('#id-signup').attr("placeholder", "이미 존재하는 아이디 입니다")
-    //         check = false;
-    //     }
-    // });
-
     return check;
 }
 function password_check(password, repeatPass) {//password 유효성 검사
