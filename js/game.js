@@ -117,7 +117,7 @@ function click_up() {//높다
             sessionStorage.setItem('userData', updatedUserSession);
         }
         document.getElementById("score").innerHTML = "점수 : " + score;
-        document.getElementById("b_score").innerHTML = "최고 점수 : " + localStorage.getItem('best_score');
+        document.getElementById("b_score").innerHTML = "최고 점수 : " + user.gameStore;
 
 
     }, 600);
@@ -169,7 +169,7 @@ function click_down() {
             sessionStorage.setItem('userData', updatedUserSession);
         }
         document.getElementById("score").innerHTML = "점수 : " + score;
-        document.getElementById("b_score").innerHTML = "최고 점수 : " + localStorage.getItem('best_score');
+        document.getElementById("b_score").innerHTML = "최고 점수 : " + user.gameStore;
     }, 600);
 }
 //정답오답 함수
