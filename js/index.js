@@ -113,6 +113,9 @@ window.onload = () => {
   if (user) {
     console.log("log in")
     // 사용자가 로그인한 경우
+    $('#go-game').append(`
+    <a href="chang_game.html">게임하러가기</a>
+    `)
     $('#is_login').html(
       `
         <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${user.displayName}님 반갑습니다</a>
@@ -134,6 +137,7 @@ window.onload = () => {
     });
   } else {
     // 사용자가 로그인하지 않은 경우
+    // $('#go-game').html("")
     $('#is_login').html(`<button id='log_join.html'onClick="location.href='log_join.html'">Login</button>`);
   }
 
@@ -192,7 +196,7 @@ function search(event) {
     event.preventDefault();
   }
   // event.preventDefault();
-  var searchWord = searchInput.value.toUpperCase()
+  let searchWord = searchInput.value.toUpperCase()
 
   const searchgenre = genreFilter.value;
   cardList.innerHTML = "";

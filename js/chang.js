@@ -116,7 +116,7 @@ function sign_up() {
 
 function name_check(name) {
     let check = false;
-    var all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
+    let all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
     console.log(name.length)
     if ((name.length < 7 && name.length > 1) && !(all_S_character.test(name))) {
         //길이 제한 + !특수문자
@@ -132,7 +132,7 @@ function name_check(name) {
 
 function id_check(id) {//id 유효성 검사
     let check = true;
-    var valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
+    let valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
 
     if(valid_txt.test(useremail.value)==false){ 
 		  
@@ -144,7 +144,7 @@ function id_check(id) {//id 유효성 검사
     return check;
 }
 function password_check(password, repeatPass) {//password 유효성 검사
-    var all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
+    let all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
     if (password.length < 31 && password.length > 6 && !(all_korean.test(password))) {
         return true;
     }
@@ -156,3 +156,16 @@ function password_check(password, repeatPass) {//password 유효성 검사
         return false;
     }
 }
+
+$('#search_input').on("keydown", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        console.log(13)
+        location.href = `index.html?searchWord=${$('#search_input').val()}`;
+    }
+});
+
+$("#searchClick").on("click", function (e) {
+    location.href = `index.html?searchWord=${$('#search_input').val()}`;
+});
+
