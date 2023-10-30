@@ -27,27 +27,29 @@ function login(email, password) {
 
 //Email 회원가입
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Sign In form submit event
-    $("#sign-in-form").submit(function (e) {
+    const signInForm = document.getElementById("sign-in-form");
+    signInForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        console.log("eeee")
+        console.log("eeee");
         sign_in();
     });
 
     // Sign Up form submit event
-    $("#sign-up-form").submit(function (e) {
+    const signUpForm = document.getElementById("sign-up-form");
+    signUpForm.addEventListener("submit", function (e) {
         e.preventDefault();
         sign_up();
     });
 });
 
+
 function sign_in() {
-    let signIn = {
-        idSignin: $("#id-signin").val(),
-        passSignin: $("#pass-signin").val(),
-    };
-    signInWithEmailAndPassword(auth, signIn.idSignin, signIn.passSignin)
+    const idSignin = document.getElementById("id-signin").value;
+    const passSignin = document.getElementById("pass-signin").value;
+
+    signInWithEmailAndPassword(auth, idSignin, passSignin)
         .then((userCredential) => {
             // 로그인 성공 시 처리
             const user = userCredential.user;
@@ -57,12 +59,12 @@ function sign_in() {
                 uid: user.uid,
                 displayName: user.displayName,
                 email: user.email,
-                gameStore:0,
+                gameStore: 0,
             };
 
             const userDataString = JSON.stringify(userData);
             sessionStorage.setItem('userData', userDataString);
-            
+
             location.href = "index.html";
         })
         .catch((error) => {
@@ -73,35 +75,31 @@ function sign_in() {
 }
 
 function sign_up() {
-    let signUp = {
-        userSignup: $("#user-signup").val(),
-        idSignup: $("#id-signup").val(),
-        passSignup: $("#pass-signup").val(),
-        repeatPass: $('#repeat-pass').val(),
-    };
+    const userSignup = document.getElementById("user-signup").value;
+    const idSignup = document.getElementById("id-signup").value;
+    const passSignup = document.getElementById("pass-signup").value;
+    const repeatPass = document.getElementById("repeat-pass").value;
 
-
-    if (signUp.userSignup === '' || signUp.idSignup === '' || signUp.passSignup === '' || signUp.repeatPass === '') {
+    if (userSignup === '' || idSignup === '' || passSignup === '' || repeatPass === '') {
         alert("모든 항목을 입력해주세요.");
         return;
     }
-    if (name_check(signUp.userSignup) + id_check(signUp.idSignup) + password_check(signUp.passSignup, signUp.repeatPass) == 3) {
-        createUserWithEmailAndPassword(auth, signUp.idSignup, signUp.passSignup)
+
+    if (name_check(userSignup) + id_check(idSignup) + password_check(passSignup, repeatPass) === 3) {
+        createUserWithEmailAndPassword(auth, idSignup, passSignup)
             .then((userCredential) => {
-                console.log(userCredential)
                 // 회원가입 성공 시 처리
                 const user = userCredential.user;
-                console.log(user);
+
                 // 사용자 정보 업데이트
-                
                 return updateProfile(user, {
-                    displayName: signUp.userSignup,
+                    displayName: userSignup,
                     gameStore: "0",
                     photoURL: "https://example.com/jane-q-user/profile.jpg"
                 });
             })
             .then(() => {
-                alert("회원가입 성공! 로그인해주세요")
+                alert("회원가입 성공! 로그인해주세요");
                 document.getElementById("tab-1").checked = true;
                 document.getElementById("tab-2").checked = false;
             })
@@ -109,7 +107,7 @@ function sign_up() {
                 // 회원가입 실패 시 처리
                 const errorMessage = error.message;
                 console.error("회원가입 실패:", errorMessage);
-                alert("이미 가입된 회원입니다")
+                alert("이미 가입된 회원입니다");
                 location.reload();
             });
     }
@@ -117,49 +115,63 @@ function sign_up() {
 
 function name_check(name) {
     let check = true;
-    let all_S_character = /[~!@#\#$%<>^&*]/; //특수문자
-    console.log(name.length)
-    if ((name.length > 7 && name.length < 1) && all_S_character.test(name)) {
-        //길이 제한 + !특수문자
-        $("#user-signup").val('');
-        $('#user-signup').attr("placeholder", "이름은 2~6자 이하이고 특수문자를 사용할수 없습니다.")
-        check= false
+    let all_S_character = /[~!@#\#$%<>^&*]/; // 특수문자
+    console.log(name.length);
+
+    if (name.length < 2 || name.length > 6 || all_S_character.test(name)) {
+        // 이름 길이 제한 및 특수문자 검사
+        const userSignupInput = document.getElementById("user-signup");
+        userSignupInput.value = '';
+        userSignupInput.placeholder = "이름은 2~6자 이하이고 특수문자를 사용할 수 없습니다.";
+        check = false;
     }
-    console.log(check)
+
+    console.log(check);
     return check;
 }
 
-function id_check(id) {//id 유효성 검사
+function id_check(id) {
     let check = true;
-    let valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; 
+    let valid_txt = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 
-    if(valid_txt.test(id)==false){ 
-		  
-        $("#id-signup").val('');
-        $('#id-signup').attr("placeholder", "올바른 email을 입력해주세요")
-        
-        check=  false;
+    if (!valid_txt.test(id)) {
+        const idSignupInput = document.getElementById("id-signup");
+        idSignupInput.value = '';
+        idSignupInput.placeholder = "올바른 이메일을 입력해주세요";
+        check = false;
     }
-    console.log(check)
+
+    console.log(check);
     return check;
 }
-function password_check(password, repeatPass) {//password 유효성 검사
-    let all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; //한글
-    let check = true
-    if(password!==repeatPass){
-        $('#repeat-pass').val('');
-        $('#repeat-pass').attr("placeholder", "비밀번호가 다릅니다")
-        check = false
+
+
+function password_check(password, repeatPass) {
+    let all_korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
+    let check = true;
+
+    if (password !== repeatPass) {
+        const repeatPassInput = document.getElementById("repeat-pass");
+        repeatPassInput.value = '';
+        repeatPassInput.placeholder = "비밀번호가 다릅니다";
+        check = false;
     }
-    if(password.length > 31 && password.length < 6 && !(all_korean.test(password))){
-        $("#pass-signup").val('');
-        $('#repeat-pass').val('');
-        $('#pass-signup').attr("placeholder", "비밀번호는 7~30자 이하에 한글을 사용할 수 없습니다")
-        alert("비밀번호를 확인해주세요")
-        check = false
+
+    if (password.length > 30 || password.length < 7 || all_korean.test(password)) {
+        const passSignupInput = document.getElementById("pass-signup");
+        const repeatPassInput = document.getElementById("repeat-pass");
+
+        passSignupInput.value = '';
+        repeatPassInput.value = '';
+
+        passSignupInput.placeholder = "비밀번호는 7~30자 이하에 한글을 사용할 수 없습니다";
+        alert("비밀번호를 확인해주세요");
+        check = false;
     }
-    return check
+
+    return check;
 }
+
 
 $('#search_input').on("keydown", function (event) {
     if (event.key == "Enter") {

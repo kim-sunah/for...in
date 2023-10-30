@@ -32,50 +32,62 @@ fetch(`https://api.themoviedb.org/3/movie/${url}?append_to_response=credits&lang
     .catch(err => console.error(err));
 
 function templet(response) {
-    $('.col1').append(`
-        <a href="detail.html?id=${response.id}">
+    const col1 = document.querySelector('.col1');
+    const text = document.querySelector('#text');
+
+    col1.innerHTML = `
+          <a href="detail.html?id=${response.id}">
             <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="쏘우 10">
-        </a>
-    `)
-    $('#text').append(`
-    <h2 class="space">A review by ${user.displayName}</h2>
-        <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
-        <div id="editor-textarea" class="column">
+          </a>
+        `;
+
+    text.innerHTML = `
+          <h2 class="space">A review by ${user.displayName}</h2>
+          <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
+          <div id="editor-textarea" class="column" id = "editor-textarea">
             <div class="editor">
-                <textarea>${review.review.replace(/<br>/g, '\n')}</textarea>
+              <textarea>${review.review.replace(/<br>/g, '\n')}</textarea>
             </div>
-        </div>
-    `)
-    $('.cancle').attr('href', `detail.html?id=${url}`)
-}
+          </div>
+        `;
 
-$('#edit').on('click', async (e) => {
-    e.preventDefault();
-    let review_text = $('textarea').val();
-    review_text = review_text.replace(/\n/g, '<br>');
+    const textarea = document.querySelector('textarea');
+    const editButton = document.getElementById('edit');
+    editButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        let review_text = textarea.value;
+        review_text = review_text.replace(/\n/g, '<br>');
 
-    for (let i of reviewArr) {
-        if (i.id === review_id) {
-            i.review = review_text;
-            break;
-        }
-    }
-    localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
-    alert("수정완료");
-    location.href = `detail.html?id=${url}`;
-})
-
-$('.delete').on('click', async (e) => {
-    e.preventDefault();
-    if (confirm('정말로 삭제하시겠습니까?')) {
-        for (let i = 0; i < reviewArr.length; i++) {
-            if (reviewArr[i].id === review_id) {
-                reviewArr.splice(i, 1);
+        // 리뷰 수정
+        for (let i of reviewArr) {
+            if (i.id === review_id) {
+                i.review = review_text;
                 break;
             }
         }
+
+        // 수정된 리뷰 저장
         localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
-        alert('삭제 완료!');
+        alert("수정완료");
         location.href = `detail.html?id=${url}`;
-    }
-})
+    });
+
+    const deleteButton = document.querySelector('.delete');
+    deleteButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            // 리뷰 삭제
+            for (let i = 0; i < reviewArr.length; i++) {
+                if (reviewArr[i].id === review_id) {
+                    reviewArr.splice(i, 1);
+                    break;
+                }
+            }
+
+            // 삭제된 리뷰 저장
+            localStorage.setItem(_REVIEW, JSON.stringify(reviewArr));
+            alert('삭제 완료!');
+            location.href = `detail.html?id=${url}`;
+        }
+    });
+}

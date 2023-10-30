@@ -46,7 +46,8 @@ function templet(response) {
             <img class="poster" src="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path}" srcset="https://www.themoviedb.org/t/p/w220_and_h330_face${response.poster_path} 1x, https://www.themoviedb.org/t/p/w440_and_h660_face${response.poster_path} 2x" alt="쏘우 10">
         </a>
     `)
-    $('#text').append(`
+    if(userSession){
+        $('#text').append(`
         <h2 class="space">A review by ${user.displayName}</h2>
         <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
         <div id="editor-textarea" class="column">
@@ -55,6 +56,17 @@ function templet(response) {
             </div>
         </div>
     `)
+    }else{
+        $('#text').append(`
+        <h2 class="space">A review by you</h2>
+        <h3>Title: <span>${response.title} (${response.release_date.slice(0, 4)})</span></h3>
+        <div id="editor-textarea" class="column">
+            <div class="editor">
+                <textarea placeholder="You can start writing your review here."></textarea>
+            </div>
+        </div>
+    `)
+    }
     $('.cancle').attr('href', `detail.html?id=${url}`)
 }
 

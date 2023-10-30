@@ -104,47 +104,64 @@ function loadData() {
       search();
     });
 }
-
-window.onload = () => {
-
-  //로그인 상태 확인
-  const userSession = sessionStorage.getItem('userData');
-  const user = JSON.parse(userSession);
+window.onload = function () {
+  // 로그인 상태 확인
+  var userSession = sessionStorage.getItem('userData');
+  var user = JSON.parse(userSession);
   if (user) {
-    console.log("log in")
-    // 사용자가 로그인한 경우
-    $('#go-game').append(`
-    <a href="chang_game.html">게임하러가기</a>
-    `)
-    $('#is_login').html(
-      `
-        <a class="no_click tooltip_hover" id="userName" title="프로필과 설정" data-role="tooltip">${user.displayName}님 반갑습니다</a>
-        <button id="log_out">Logout</button>
-        `
-    )
-    $("#log_out").click(function () {
-      signOut(auth)
-        .then(() => {
-          // 로그아웃 성공 시 처리
-          sessionStorage.removeItem('userData');
-          alert("로그아웃 성공!");
-          location.reload();
-        })
-        .catch((error) => {
-          // 로그아웃 실패 시 처리
-          alert("로그아웃 실패: " + error);
-        });
-    });
+      console.log("log in");
+      // 사용자가 로그인한 경우
+      var goGameLink = document.createElement('a');
+      goGameLink.href = "chang_game.html";
+      goGameLink.textContent = "게임하러가기";
+      document.getElementById('go-game').appendChild(goGameLink);
+
+      var isLoginDiv = document.getElementById('is_login');
+      var userNameLink = document.createElement('a');
+      userNameLink.className = "no_click tooltip_hover";
+      userNameLink.id = "userName";
+      userNameLink.title = "프로필과 설정";
+      userNameLink.setAttribute('data-role', 'tooltip');
+      userNameLink.textContent = user.displayName + "님 반갑습니다";
+      isLoginDiv.appendChild(userNameLink);
+
+      var logoutButton = document.createElement('button');
+      logoutButton.id = "log_out";
+      logoutButton.textContent = "Logout";
+      isLoginDiv.appendChild(logoutButton);
+
+      logoutButton.addEventListener('click', function () {
+          signOut(auth)
+              .then(function () {
+                  // 로그아웃 성공 시 처리
+                  sessionStorage.removeItem('userData');
+                  alert("로그아웃 성공!");
+                  location.reload();
+              })
+              .catch(function (error) {
+                  // 로그아웃 실패 시 처리
+                  alert("로그아웃 실패: " + error);
+              });
+      });
   } else {
-    // 사용자가 로그인하지 않은 경우
-    // $('#go-game').html("")
-    $('#is_login').html(`<button id='log_join.html'onClick="location.href='log_join.html'">Login</button>`);
+      // 사용자가 로그인하지 않은 경우
+      var loginButton = document.createElement('button');
+      loginButton.id = 'log_join.html';
+      loginButton.textContent = "Login";
+      loginButton.onclick = function () {
+          location.href = 'log_join.html';
+      };
+      document.getElementById('is_login').appendChild(loginButton);
   }
 
-  if (search_word) searchInput.value = search_word
+  var searchInput = document.getElementById('search_input');
+  if (search_word) {
+      searchInput.value = search_word;
+  }
+
   searchInput.value = search_word != null ? search_word : null;
   loadData();
-}
+};
 function sortChange(e) {
   // console.log(e.target.value);
   if (e == "lowAverage") {
@@ -175,10 +192,11 @@ function sortChange(e) {
 genreFilter.addEventListener("change", () => {
   search();
 });
-$("#selectSort").on("change", (event) => {
-  sortChange(event.target.value)
+document.getElementById("selectSort").addEventListener("change", function (event) {
+  sortChange(event.target.value);
   search();
 });
+
 searchInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();

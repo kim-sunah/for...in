@@ -1,14 +1,14 @@
 const checkAdult = document.getElementById("flexCheck");
-
+const cardList = document.getElementById("cardList");
 
 const adultOptions = {
-
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNTVkOGU5NzhjNTQyZGQ0YjE2NWQ0MDhmNjQ1ZTgxMyIsInN1YiI6IjY1MzA3NGY4MGI3NGU5MDBhYmNmOTY3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BbAayICdXcDqCMAhKfcB6MK6IIkRfsujypX6hXGcRt8'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNTVkOGU5NzhjNT4yZGQ0YjE2NWQ0MDhmNjQ1ZTgxMyIsInN1YiI6IjY1MzA3NGY4MGI3NGU5MD4wYmNmOTY3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BbAayICdXcDqCMAhKfcB6MK6IIkRfsujypX6hXGcRt8'
     }
 };
+
 checkAdult.addEventListener('click', function() {
     adultsearch();
 });
@@ -34,23 +34,38 @@ function adultsearch() {
 }
 
 function displayMovies(movies) {
-    let movieCards = [];
-    const cardList = document.getElementById("cardList");
-
     cardList.innerHTML = '';
 
     movies.forEach(element => {
-        const movieCard = `
-            <div class="movieCard" id="${element.id}" onclick="movieClick(${element.id})">
-                <img class="movieImg" src="https://image.tmdb.org/t/p/w500/${element.poster_path}"/>
-                <h3 class="movieTitle">${element.original_title}</h3>
-                <p class="movieTxt">${element.overview}</p>
-                <p class="movieAverage">Rating: ${element.vote_average}</p>
-            </div>`;
+        const movieCard = document.createElement("div");
+        movieCard.classList.add("movieCard");
+        movieCard.id = element.id;
+        movieCard.addEventListener("click", function () {
+            movieClick(element.id);
+        });
 
-        movieCards.push(movieCard);
+        const movieImg = document.createElement("img");
+        movieImg.classList.add("movieImg");
+        movieImg.src = `https://image.tmdb.org/t/p/w500/${element.poster_path}`;
+        movieCard.appendChild(movieImg);
+
+        const movieTitle = document.createElement("h3");
+        movieTitle.classList.add("movieTitle");
+        movieTitle.textContent = element.original_title;
+        movieCard.appendChild(movieTitle);
+
+        const movieTxt = document.createElement("p");
+        movieTxt.classList.add("movieTxt");
+        movieTxt.textContent = element.overview;
+        movieCard.appendChild(movieTxt);
+
+        const movieAverage = document.createElement("p");
+        movieAverage.classList.add("movieAverage");
+        movieAverage.textContent = `Rating: ${element.vote_average}`;
+        movieCard.appendChild(movieAverage);
+
+        cardList.appendChild(movieCard);
     });
-
-    cardList.innerHTML = movieCards.join("");
 }
-console.log("hello")
+
+console.log("hello");
