@@ -172,16 +172,19 @@ function password_check(password, repeatPass) {
     return check;
 }
 
+const searchInput = document.getElementById('search_input');
+const searchClickButton = document.getElementById('searchClick');
 
-$('#search_input').on("keydown", function (event) {
-    if (event.key == "Enter") {
+searchInput.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
         event.preventDefault();
-        console.log(13)
-        location.href = `index.html?searchWord=${$('#search_input').val()}`;
+        console.log(13); // 이 부분은 필요에 따라 사용
+        const searchWord = searchInput.value;
+        location.href = `index.html?searchWord=${searchWord}`;
     }
 });
 
-$("#searchClick").on("click", function (e) {
-    location.href = `index.html?searchWord=${$('#search_input').val()}`;
+searchClickButton.addEventListener('click', function(e) {
+    const searchWord = searchInput.value;
+    location.href = `index.html?searchWord=${searchWord}`;
 });
-
